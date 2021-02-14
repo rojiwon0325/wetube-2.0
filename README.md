@@ -1,7 +1,7 @@
-#WETUBE
+# WETUBE
 - YOUTUBE CLONE CODING
 
-##Pages:
+## Pages:
 
 // Global
 - [ ] Home
