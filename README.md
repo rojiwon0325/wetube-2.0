@@ -3,18 +3,18 @@
 
 ## Pages:
 
-// Global
+### Global
 - [ ] Home
 - [ ] Join
 - [ ] Login
 - [ ] Search
 
-// User
+### User
 - [ ] Profile
 - [ ] Profile/Edit
 - [ ] ChangePassword
 - [ ] Upload
 
-// Video
+### Video
 - [ ] Video/Detail
 - [ ] Video/Edit
