@@ -1,6 +1,6 @@
 import app from "./app";
-
-const PORT = 4000;
+import env from "./env";
+const PORT = env;
 
 app.listen(PORT, () => {
     console.log(`✅ Listening on: http://localhost:${PORT}`);
