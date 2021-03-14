@@ -1,7 +1,7 @@
-const express = require("express");
+import app from "./app";
 
-const app = express();
+const PORT = 4000;
 
-app.listen(process.env.PORT, () => {
-    console.log("Hello World!");
+app.listen(PORT, () => {
+    console.log(`✅ Listening on: http://localhost:${PORT}`);
 });
