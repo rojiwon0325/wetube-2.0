@@ -1,34 +1,46 @@
-// Global
-
 const HOME = "/";
-const JOIN = "/join";
 const LOGIN = "/login";
-
-// Users
-
-const USERS = "/users";
-const PROFILE = "/:id";
-const PROFILE_EDIT = `${PROFILE}/edit`;
-
-// Video
-
-const VIDEOS = "/videos";
 const UPLOAD = "/upload";
-const VIDEO_DETAIL = "/:id";
-const VIDEO_DETAIL_EDIT = `${VIDEO_DETAIL}/edit`;
+const EDIT = "/edit";
+const RESULT = "/result";
+const WATCH = "/watch";
+
+// Channel
+
+const CHANNEL = "/channel/:id";
+const VIDEOS = "/videos";
+const PLAYLIST = "/playlist";
 
 
 const routes = {
     home: HOME,
-    join: JOIN,
     login: LOGIN,
+    result: RESULT,
+    edit: EDIT,
+    watch: WATCH,
 
-    users: USERS,
-    profile: PROFILE,
-
-    videos: VIDEOS,
+    channel: (id) => {
+        if (id) {
+            return `/channel/${id}`
+        } else {
+            return CHANNEL
+        }
+    },
+    videos: (id) => {
+        if (id) {
+            return `/channel/${id}/videos`
+        } else {
+            return VIDEOS
+        }
+    },
+    playlist: (id) => {
+        if (id) {
+            return `/channel/${id}/playlist`
+        } else {
+            return PLAYLIST
+        }
+    },
     upload: UPLOAD,
-    videoDetail: VIDEO_DETAIL
 };
 
 export default routes;
