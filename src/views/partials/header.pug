@@ -1,0 +1,21 @@
+header.header
+    .header__column
+        ul
+            li
+                button.header-button 메뉴
+            li
+                a(href=routes.home)
+                    i.fab.fa-youtube
+    .header__column
+        form(action=routes.result, method="get")
+            input(type="search", placeholder="검색", name="search_query", value=value)        
+    .header__column
+        ul
+            li
+                // form(action=routes.videos(1)+routes.upload, method="get")
+                    button.header-button 업로드
+            li
+                button.header-button
+                    a(href=routes.login) 로그인
+            li
+                button.header-button 로그아웃

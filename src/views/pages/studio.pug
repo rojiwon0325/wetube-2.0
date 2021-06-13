@@ -1,0 +1,15 @@
+extends ../layouts/main
+
+block content
+    .studio-title
+        h1 채널 콘텐츠
+    .studio-upload-form
+        form(action=routes.channel()+routes.upload, method="post", enctype="multipart/form-data")
+            input(type="file", required placeholder="Video", accept="video/*")
+            input(type="file", required placeholder="Thumbnail:main", accept="img/*")
+            input(type="file", placeholder="Thumbnail:hover", accept="img/*")
+            input(type="text", required placeholder="Title")
+            textarea(type="text", placeholder="Description")
+            input(type="submit", value="upload")
+    .studio-video-list
+        // each video in videos

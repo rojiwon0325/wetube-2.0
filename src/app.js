@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import globalRouter from "./routers/globalRouter";
 import { localMiddleware } from "./middlewares";
+
 const app = express();
 
 app.use(helmet());

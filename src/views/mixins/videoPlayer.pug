@@ -1,0 +1,16 @@
+mixin videoPlayer(video = {})
+    .player-container
+        .player-content
+            video(src=video.src)
+        .player-bottom
+            .player-progress-bar-container
+                .progress-bar-hover
+                .progress-bar-total
+                    .progress-bar-running
+            .player-controls
+            .player-controls-left
+                i.fas.fa-play
+                i.fas.fa-volume-up
+                input.player-volume(type="range", min="0", max="1", value="0.5", step="0.1")
+            .player-controls-right
+                i.fas.fa-expand

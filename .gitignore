@@ -117,4 +117,5 @@ dist
 
 
 package-lock.json
-env.js
+.env
+.eslintrc.js

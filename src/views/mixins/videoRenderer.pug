@@ -1,0 +1,18 @@
+
+mixin videoRenderer(video = {})
+    .video-renderer
+        a(hre="#1").thumbnail
+            img(src="", alt="")
+        .video-renderer-info
+            a(href="channel").channel-avatar-link
+                img(src="", alt="")
+            .video-renderer-details
+                h3.video-renderer-title
+                    a(href="#1").video-title-link="video title"
+                .video-metadata-wrap
+                    .channel-name
+                        a(href="channel") 
+                    .video-metadata
+                        a(href="#1") 
+                            span="createdAt"
+                            span="views"
