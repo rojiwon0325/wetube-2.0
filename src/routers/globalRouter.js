@@ -1,15 +1,15 @@
 import express from "express";
-import routes from "./routes";
-import { home, login, result, watch } from "../controllers/globalController";
-import channelRouter from "./channelRouter";
+import { home, login, results, watch } from "./controllers/globalController";
+import userRouter from "./userRouter";
+
 
 const globalRouter = express.Router();
 
-globalRouter.get(routes.home, home);
-globalRouter.get(routes.login, login);
-globalRouter.get(routes.result, result);
-globalRouter.get(routes.watch, watch);
+globalRouter.get("/", home);
+globalRouter.get("/login", login);
+globalRouter.get("/results", results);
+globalRouter.get("/watch", watch);
 
-globalRouter.use(routes.channel(), channelRouter);
+globalRouter.use("/user", userRouter);
 
 export default globalRouter;
