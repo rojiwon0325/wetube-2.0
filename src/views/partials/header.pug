@@ -4,18 +4,23 @@ header.header
             li
                 button.header-button 메뉴
             li
-                a(href=routes.home)
-                    i.fab.fa-youtube
+                a(href="/", style="width:100px, heigth:100px")
+                    i.fas.fa-thumbs-up.fa-5x
     .header__column
-        form(action=routes.result, method="get")
-            input(type="search", placeholder="검색", name="search_query", value=value)        
+        form(id="search-form", action="/results", method="GET")
+            input(form="search-form", id="search-input", autocapitalize="none", autocomplete="off", autocorrect="off", name="search_query", type="text", spellcheck="false", placeholder="Search")      
     .header__column
         ul
             li
-                // form(action=routes.videos(1)+routes.upload, method="get")
-                    button.header-button 업로드
+                .header_item
+                    a(href="/upload") STUDIO
+                    // /upload로 이동하는게 아니라 /studio/videos/upload로 jump한다.
             li
-                button.header-button
-                    a(href=routes.login) 로그인
+                .header_item
+                    a(href="/user/:id") MY CHANNEL
             li
-                button.header-button 로그아웃
+                .header_item
+                    a(href="/login") LOGIN
+            li
+                .header_item
+                    a(href="/logout") LOGOUT

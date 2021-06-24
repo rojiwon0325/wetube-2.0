@@ -9,7 +9,7 @@ const app = express();
 
 app.use(helmet());
 app.set("view engine", "pug");
-app.set("views", "./views/pages");
+app.set("views", `${process.cwd()}/src/views/pages`);
 
 app.use(cookieParser());
 app.use(express.json());

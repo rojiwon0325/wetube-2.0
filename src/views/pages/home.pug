@@ -1,0 +1,10 @@
+extends ../layouts/main.pug
+
+block head
+    title WeTube
+
+block content
+    h1 HOME
+    a(href="watch?v=32432523") button
+    form(id="search-form", action="/results", method="GET")
+    input(form="search-form", id="search-input", autocapitalize="none", autocomplete="off", autocorrect="off", name="search_query", type="text", spellcheck="false", placeholder="Search")
