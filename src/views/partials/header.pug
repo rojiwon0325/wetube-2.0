@@ -6,21 +6,23 @@ header.header
             li
                 a(href="/", style="width:100px, heigth:100px")
                     i.fas.fa-thumbs-up.fa-5x
+    // Do Not Remove
     .header__column
         form(id="search-form", action="/results", method="GET")
             input(form="search-form", id="search-input", autocapitalize="none", autocomplete="off", autocorrect="off", name="search_query", type="text", spellcheck="false", placeholder="Search")      
+    // Do Not Remove
     .header__column
         ul
-            li
-                .header_item
-                    a(href="/upload") STUDIO
-                    // /upload로 이동하는게 아니라 /studio/videos/upload로 jump한다.
-            li
-                .header_item
-                    a(href="/user/:id") MY CHANNEL
-            li
-                .header_item
-                    a(href="/login") LOGIN
-            li
-                .header_item
+            if user
+                li.header_item
+                        a(href="/upload") STUDIO
+                        // /upload에서 /studio/videos/upload로 auto jump한다.
+                li.header_item
+                        a(href="/user") MY CHANNEL
+                        // /user에서 /user/:id로 jump
+                li.header_item
                     a(href="/logout") LOGOUT
+
+            else
+                li.header_item
+                        a(href="/login") LOGIN

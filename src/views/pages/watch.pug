@@ -1,8 +1,4 @@
-extends ../layouts/main.pug
-
-block head
-    title videotitle | WeTube
-
+extends ../layouts/main
 
 block content
-    h1 watch
+    span=video? video.title : "none"

@@ -1,0 +1,8 @@
+mixin videoRenderer(video)
+    .videoRenderer-wrap
+        a(href=`/watch?v=${video.id}`)=video.title
+        ul
+            li #{video.rating}/5
+            li #{video.comments} comments
+            li Posted #{createdAt}
+            li #{video.views} views

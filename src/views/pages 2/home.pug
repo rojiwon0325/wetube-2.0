@@ -1,0 +1,9 @@
+extends ../layouts/main
+include ../mixins/videoRenderer
+
+block content
+    .guide-aside
+        include ../partials/miniaside
+    .home-content-container
+        // each item in videos
+             +videoRenderer(item)
