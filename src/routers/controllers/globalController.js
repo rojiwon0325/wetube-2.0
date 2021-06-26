@@ -18,13 +18,13 @@ export const login = (req, res) => {
 
 
 export const results = async (req, res) => {
-    console.log(req.query);
-    res.render("search", { pageTitle: "results |" });
+    const key = req.query.search_query;
+    res.render("search", { pageTitle: `${key} |` });
 }
 
 
 export const watch = async (req, res) => {
-    // const { v } = req.query;
-    const video = Video.find({}); // id == v
+    const { v } = req.query;
+    const video = await Video.findById(v);
     res.render("watch", { pageTitle: video ? `${video.title} |` : "", video });
 }

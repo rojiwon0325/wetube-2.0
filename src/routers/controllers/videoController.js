@@ -8,12 +8,16 @@ export const getUpload = (req, res) => {
 };
 export const postUpload = async (req, res) => {
     const { title, description } = req.body;
-    const video = new Video({
-        title,
-        description: description || "",
-        createdAt: Date.now()
-    });
-    console.log(video);
+    try {
+        await Video.create({
+            title,
+            description: description || "",
+            createdAt: Date.now()
+        });
+    } catch (error) {
+        console.log(error);
+
+    }
     return res.redirect("/");// --> go to video
 };
 export const getEditVideo = (req, res) => {
