@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CommentSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
         text: {
             type: String,
@@ -13,14 +13,10 @@ const CommentSchema = new mongoose.Schema(
         creator: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
-        },
-        comments: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        }]
+        }
     }
 );
 
-const model = mongoose.model("Comment", CommentSchema);
+const model = mongoose.model("Comment", schema);
 
 export default model;

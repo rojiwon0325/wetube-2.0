@@ -1,6 +1,6 @@
 import express from "express";
 import { home, login, results, watch } from "./controllers/globalController";
-import studioRouter from "./studioRouter";
+import videoRouter from "./videoRouter";
 import userRouter from "./userRouter";
 
 
@@ -12,6 +12,6 @@ globalRouter.get("/results", results);
 globalRouter.get("/watch", watch);
 
 globalRouter.use("/user", userRouter);
-globalRouter.use("/studio", studioRouter);
+globalRouter.use("/video", videoRouter);
 
 export default globalRouter;

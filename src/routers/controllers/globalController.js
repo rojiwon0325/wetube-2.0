@@ -1,28 +1,15 @@
-let user = {
-    username: "jiwon"
-}
-user = null;
-const videos = [
-    {
-        title: "video title",
-        rating: 2,
-        comments: 3,
-        createdAt: "2 minutes ago",
-        views: 59,
-        id: 1
-    },
-    {
-        title: "video title2",
-        rating: 3,
-        comments: 4,
-        createdAt: "3 minutes ago",
-        views: 9,
-        id: 2
-    }
-];
+import Video from "../../models/Video";
 
-export const home = (req, res) => {
-    res.render("home", { user, videos });
+const user = null;
+
+export const home = async (req, res) => {
+    try {
+        const videos = await Video.find({});
+        return res.render("home", { user, videos });
+    } catch (error) {
+        return res.render("404");
+    }
+
 }
 
 export const login = (req, res) => {
@@ -30,14 +17,14 @@ export const login = (req, res) => {
 }
 
 
-export const results = (req, res) => {
+export const results = async (req, res) => {
     console.log(req.query);
     res.render("search", { pageTitle: "results |" });
 }
 
 
-export const watch = (req, res) => {
-    const { v } = req.query;
-    const video = videos.find(elem => elem.id === parseInt(v, 10));
+export const watch = async (req, res) => {
+    // const { v } = req.query;
+    const video = Video.find({}); // id == v
     res.render("watch", { pageTitle: video ? `${video.title} |` : "", video });
 }
