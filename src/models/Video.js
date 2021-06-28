@@ -4,11 +4,13 @@ const schema = new mongoose.Schema(
     {
         title: {
             type: String,
-            required: "Title is required"
+            required: "Title is required",
+            trim: true
         },
         description: {
             type: String,
-            default: ""
+            default: "",
+            trim: true
         },
         createdAt: {
             type: Date,

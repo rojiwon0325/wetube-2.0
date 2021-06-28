@@ -1,4 +1,10 @@
 extends ../layouts/main
+include ../mixins/videoRenderer
 
 block content
-    h1 search
+    h1 search: #{key}
+    each video in videos
+        +videoRenderer(video)
+    else
+        div nothing found
+        
