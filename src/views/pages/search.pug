@@ -2,7 +2,7 @@ extends ../layouts/main
 include ../mixins/videoRenderer
 
 block content
-    h1 search: #{key}
+    h1 search: #{search_query}
     each video in videos
         +videoRenderer(video)
     else

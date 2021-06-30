@@ -3,3 +3,10 @@ extends ../layouts/main
 
 block content
     h1 login
+    form(id="login-form", method="POST")
+        input(form="login-form", type="email", name="email", placeholder="Email", required)
+        input(form="login-form", type="passwordd", name="password", placeholder="Password" required)
+        input(form="login-form", type="submit", name="login")
+    form(id="passport-form", method="POST")
+    input(form="passport-form", type="submit", name="passport_github")
+    input(form="passport-form", type="submit", name="passport_google")

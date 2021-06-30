@@ -12,3 +12,11 @@ export const localMiddleware = (req, res, next) => {
 
 export const uploadVideo = multerVideo.single("filename");
 */
+
+export const localMiddleware = (req, res, next) => {
+    if (req.originalUrl != "/logout") {
+        req.session.originalUrl = req.originalUrl;
+    }
+    res.locals.login = Boolean(req.session.login);
+    next();
+};

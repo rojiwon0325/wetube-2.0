@@ -1,33 +1,54 @@
-import { crossOriginResourcePolicy } from "helmet";
 import Video from "../../models/Video";
-
-const user = null;
+import User from "../../models/User"
 
 export const home = async (req, res) => {
     try {
         const videos = await Video.find({}).sort({ createdAt: "desc" });
-        return res.render("home", { user, videos });
+        return res.render("home", { videos });
     } catch (error) {
         return res.render("404");
     }
 
 }
 
-export const login = (req, res) => {
+export const getLogin = (req, res) => {
+    req.session.login = true;
+    req.session.user = "123";
     res.render("login", { pageTitle: "Login |" });
 }
 
+export const postLogin = async (req, res) => {
+    const { login, email, password, passport_github, passport_google } = req.body;
+    if (login) {
+        req.session.login = true;
+        req.session.user = await User.find({ email, password })._id;
+
+    } else if (passport_github) {
+        // pass
+    } else if (passport_google) {
+        // pass
+    }
+    res.send();
+}
+
+export const logout = async (req, res) => {
+    req.session.login = false;
+    req.session.user = null;
+    res.redirect(req.session.originalUrl);
+}
 
 export const results = async (req, res) => {
-    // 공백만 있을때 어떻게 처리할 것인가
-    const key = req.query.search_query.trim().replace(/ +/g, " ");
-    console.log(key);
-    const videos = await Video.find({
-        title: {
-            $regex: new RegExp(key, "i"),
-        }
-    }).sort({ createdAt: "desc" });
-    res.render("search", { pageTitle: `${key} |`, key, videos });
+    const search_query = req.query.search_query.trim().replace(/ +/g, " ");
+    let videos = [];
+    if (search_query) {
+        videos = await Video.find({
+            title: {
+                $regex: new RegExp(search_query, "i"),
+            }
+        }).sort({ createdAt: "desc" });
+    }
+    res.locals.search_query = search_query;
+    return res.render("search", { pageTitle: `${search_query} |`, videos });
 }
 
 
