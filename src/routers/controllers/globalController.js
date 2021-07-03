@@ -1,5 +1,7 @@
+import { google } from "googleapis";
 import Video from "../../models/Video";
 import User from "../../models/User"
+
 
 export const home = async (req, res) => {
     try {
@@ -8,34 +10,44 @@ export const home = async (req, res) => {
     } catch (error) {
         return res.render("404");
     }
-
 }
 
-export const getLogin = (req, res) => {
-    req.session.login = true;
-    req.session.user = "123";
-    res.render("login", { pageTitle: "Login |" });
-}
-
-export const postLogin = async (req, res) => {
-    const { login, email, password, passport_github, passport_google } = req.body;
-    if (login) {
-        req.session.login = true;
-        req.session.user = await User.find({ email, password })._id;
-
-    } else if (passport_github) {
-        // pass
-    } else if (passport_google) {
-        // pass
-    }
-    res.send();
-}
-
-export const logout = async (req, res) => {
-    req.session.login = false;
-    req.session.user = null;
-    res.redirect(req.session.originalUrl);
-}
+export const googleLoginCallback = async (req, res) => {
+    const { code } = req.query;
+    const oauth2Client = new google.auth.OAuth2(
+        process.env.CLIENT_ID,
+        process.env.CLIENT_SECRET,
+        process.env.REDIRECT_URL,
+    );
+    const oauth = google.oauth2({
+        auth: oauth2Client,
+        version: "v2"
+    });
+    const { tokens } = await oauth2Client.getToken(code);
+    oauth2Client.setCredentials(tokens);
+    oauth.userinfo.get(async (err, _res) => {
+        if (_res) {
+            req.session.user = await User.findOne({ email: _res.data.email });
+            if (!req.session.user) {
+                req.session.user = await User.create({
+                    email: _res.data.email,
+                    name: _res.data.name,
+                    picture: _res.data.picture
+                });
+            }
+            res.redirect(req.session.referer);
+        } else if (err) {
+            const url = oauth2Client.generateAuthUrl({
+                access_type: "offline",
+                scope: [
+                    "https://www.googleapis.com/auth/userinfo.email",
+                    "https://www.googleapis.com/auth/userinfo.profile",
+                    "openid",]
+            });
+            res.redirect(url);
+        }
+    });
+};
 
 export const results = async (req, res) => {
     const search_query = req.query.search_query.trim().replace(/ +/g, " ");
@@ -43,7 +55,7 @@ export const results = async (req, res) => {
     if (search_query) {
         videos = await Video.find({
             title: {
-                $regex: new RegExp(search_query, "i"),
+                $regex: new RegExp(`\\b${search_query.split(" ").join("|")}\\b`, "ig"),
             }
         }).sort({ createdAt: "desc" });
     }

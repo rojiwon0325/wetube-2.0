@@ -1,4 +1,5 @@
 header.header
+    form(id="login-form", method="POST")
     .header__column
         ul
             li
@@ -23,8 +24,8 @@ header.header
                         a(href="/user") MY CHANNEL
                         // /user에서 /user/:id로 jump
                 li.header_item
-                    a(href="/logout") LOGOUT
+                    input(form="login-form", type="submit", name="logout", value="LOGOUT")
 
             else
                 li.header_item
-                        a(href="/login") LOGIN
+                    input(form="login-form", type="submit", name="login", value="LOG IN")

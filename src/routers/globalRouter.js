@@ -1,14 +1,17 @@
 import express from "express";
-import { getLogin, home, logout, postLogin, results, watch } from "./controllers/globalController";
+import { googleLoginCallback, home, results, watch } from "./controllers/globalController";
 import videoRouter from "./videoRouter";
 import userRouter from "./userRouter";
+import { localMiddleware } from "./middlewares";
 
 
 const globalRouter = express.Router();
 
+
+globalRouter.get("/google-auth/callback", googleLoginCallback);
+globalRouter.use(localMiddleware);
+
 globalRouter.get("/", home);
-globalRouter.route("/login").get(getLogin).post(postLogin);
-globalRouter.get("/logout", logout);
 globalRouter.get("/results", results);
 globalRouter.get("/watch", watch);
 
