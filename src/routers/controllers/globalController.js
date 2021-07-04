@@ -8,7 +8,8 @@ export const home = async (req, res) => {
         const videos = await Video.find({}).sort({ createdAt: "desc" });
         return res.render("home", { videos });
     } catch (error) {
-        return res.render("404");
+        const videos = [];
+        return res.render("home", { videos });
     }
 }
 
@@ -32,9 +33,17 @@ export const googleLoginCallback = async (req, res) => {
                 req.session.user = await User.create({
                     email: _res.data.email,
                     name: _res.data.name,
-                    picture: _res.data.picture
+                    avatar: _res.data.picture,
+                    google_picture: _res.data.picture,
+                    videos: []
+                });
+            } else {
+                await User.findByIdAndUpdate(
+                    req.session.user._id, {
+                    google_picture: _res.data.picture
                 });
             }
+            req.session.user.videos = null;
             res.redirect(req.session.referer);
         } else if (err) {
             const url = oauth2Client.generateAuthUrl({
@@ -68,7 +77,7 @@ export const watch = async (req, res) => {
     const reg = /([0-9a-f]{24})/g;
     const id = req.query.v.match(reg)
     if (req.query.v == id) {
-        const video = await Video.findById(id);
+        const video = await Video.findById(id).populate("creator");
         if (video) {
             return res.render("watch", { pageTitle: video ? `${video.title} |` : "", video });
         }

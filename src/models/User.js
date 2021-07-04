@@ -11,16 +11,23 @@ const schema = new mongoose.Schema(
             type: String,
             required: "nickname is required",
         },
-        picture: {
+        avatar: {
+            type: String,
+            required: "avatar is required",
+        },
+        google_picture: {
             type: String,
             required: "picture is required",
-        }
+        },
+        videos: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Video"
+            }
+        ]
     }
 );
 
-schema.pre("save", () => {
-
-});
 
 const model = mongoose.model("User", schema);
 

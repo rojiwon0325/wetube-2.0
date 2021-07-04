@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import multer from "multer";
 
 export const localMiddleware = (req, res, next) => {
     const { login, logout } = req.body;
@@ -30,3 +31,13 @@ export const localMiddleware = (req, res, next) => {
         next();
     }
 };
+
+export const privateMiddleware = (req, res, next) => {
+    if (res.locals.login) {
+        next();
+    } else {
+        res.status(403).redirect(req.headers.referer || "/");
+    }
+};
+
+export const multerMiddleware = multer({ dest: "uploads/" });

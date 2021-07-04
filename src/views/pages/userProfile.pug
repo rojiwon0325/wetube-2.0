@@ -1,0 +1,8 @@
+extends ../layouts/main
+
+block content
+    h1 USERPROFILE
+    h2=user.name
+    img(src=user.avatar)
+    if (login && user._id == me._id)
+        a(href=`/user/${user._id}/edit`) edit

@@ -8,12 +8,18 @@ import globalRouter from "./routers/globalRouter";
 
 const app = express();
 
-app.use(helmet());
-app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }));
+app.use(helmet({
+    contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+            "default-src": "*",
+            "img-src": "* data",
+        }
+    },
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
+}));
 app.set("view engine", "pug");
 app.set("views", `${process.cwd()}/src/views/pages`);
-
-
 
 app.use(cookieParser());
 app.use(express.json());

@@ -1,7 +1,8 @@
 extends ../layouts/main
 
 block content
-    form(id="upload-form", method="POST")
+    form(id="upload-form", method="POST", enctype="multipart/form-data")
         input(form="upload-form", type = "text", name = "title", placeholder="Title", requird)
         input(form="upload-form", type = "text", name = "description", placeholder="Description")
+        input(form="upload-form", type = "file", name = "video", accept="video/*")
         input(form="upload-form", type = "submit", value="UPLOAD")

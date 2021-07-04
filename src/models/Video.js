@@ -12,9 +12,18 @@ const schema = new mongoose.Schema(
             default: "",
             trim: true
         },
+        source: {
+            type: String,
+            required: true
+        },
         createdAt: {
             type: Date,
             default: Date.now
+        },
+        creator: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "User"
         }
     }
 );

@@ -1,4 +1,5 @@
-import Video from "../../models/Video"
+import Video from "../../models/Video";
+import User from "../../models/User";
 
 export const videos = (req, res) => {
     res.send("videos");
@@ -8,17 +9,23 @@ export const getUpload = (req, res) => {
 };
 export const postUpload = async (req, res) => {
     const { title, description } = req.body;
+    const { path } = req.file;
     try {
-        await Video.create({
+        const newvideo = await Video.create({
             title,
             description: description || "",
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            creator: req.session.user._id,
+            source: path
         });
+        const user = await User.findById(req.session.user._id);
+        user.videos.push(newvideo._id);
+        user.save();
     } catch (error) {
         console.log(error);
 
     }
-    return res.redirect("/");// --> go to video
+    return res.redirect("/video");
 };
 export const getEditVideo = async (req, res) => {
     const reg = /([0-9a-f]{24})/g;
@@ -26,25 +33,31 @@ export const getEditVideo = async (req, res) => {
     if (req.params.id == id) {
         const video = await Video.findById(id);
         if (video) {
-            return res.render("editVideo", { pageTitle: "Edit Video |", video });
+            if (video.creator == req.session.user._id) {
+                return res.render("editVideo", { pageTitle: "Edit Video |", video });
+            } else {
+                return res.status(403).redirect(`/watch?v=${id}`);
+            }
         }
     } else if (id) {
         return res.redirect(`/video/${id}/edit`)
     }
-    return res.render("404");
+    return res.status(404).redirect("/");
 };
 export const postEditVideo = async (req, res) => {
     const { id } = req.params;
     const { title, description } = req.body;
-    if (await Video.exists({ _id: id })) {
+    const video = await Video.findById(id);
+    if (video) {
+        if (video.creator != req.session.user._id) {
+            return res.status(403).redirect(`/watch?v=${id}`);
+        }
         if (req.body.delete) {
             await Video.findByIdAndDelete(id);
         }
         await Video.findByIdAndUpdate(id, {
             title, description
         });
-    } else {
-        return res.render("404")
     }
-    return res.redirect(`/video`);
+    return res.status(404).redirect("/video");
 };
