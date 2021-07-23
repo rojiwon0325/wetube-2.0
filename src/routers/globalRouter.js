@@ -8,7 +8,7 @@ import { localMiddleware, privateMiddleware } from "./middlewares";
 const globalRouter = express.Router();
 
 globalRouter.use("/uploads", express.static("uploads"));
-
+globalRouter.use("/static", express.static("static"));
 
 globalRouter.get("/google-auth/callback", googleLoginCallback);
 globalRouter.use(localMiddleware);
