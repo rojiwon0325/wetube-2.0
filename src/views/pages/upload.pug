@@ -1,8 +1,21 @@
 extends ../layouts/main
 
 block content
-    form(id="upload-form", method="POST", enctype="multipart/form-data")
-        input(form="upload-form", type = "text", name = "title", placeholder="Title", requird)
-        input(form="upload-form", type = "text", name = "description", placeholder="Description")
-        input(form="upload-form", type = "file", name = "video", accept="video/*")
-        input(form="upload-form", type = "submit", value="UPLOAD")
+    .uploadContainer
+        form(id="upload-form", method="POST", enctype="multipart/form-data")
+        input(form="upload-form", type = "file", name = "video", accept="video/*", required)#upload_file_input
+        input(form="upload-form", type = "file", name = "thumbnail", accept="image/*")#upload_img_input
+        .upload_container
+            .upload_form_header
+                h1.upload_h1 VIDEO UPLOAD
+            .upload_form_content_wrap
+                .upload_content_left
+                    input(form="upload-form", type = "text", name = "title", placeholder="Title", required).upload_title_input.upload_input
+                    textarea(form="upload-form", name="description", cols="30", rows="10", placeholder="Description").upload_description_input.upload_input
+                .upload_content_right
+                    video(src="#", controls=true).upload_preview
+                    label(for="upload_file_input").upload_btn Select Video File
+                    img(src="#").upload_preview               
+                    label(for="upload_img_input").upload_btn Select Image File
+            .upload_form_footer 
+                input(form="upload-form", type = "submit", value="UPLOAD").upload_submit_input.upload_btn

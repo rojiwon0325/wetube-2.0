@@ -2,7 +2,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
 const ENTRY_FILE = path.join(__dirname, "src", "front", "scripts", "main.js");
-const OUTPUT_DIR = path.join(__dirname, "src", "static");
+const OUTPUT_DIR = path.join(__dirname, "static");
 
 const config = {
     entry: ENTRY_FILE,
@@ -31,7 +31,7 @@ const config = {
     },
     output: {
         path: OUTPUT_DIR,
-        filename: "scripts/main.js",
+        filename: "js/main.js",
         clean: true
     }
 }

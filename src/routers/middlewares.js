@@ -28,6 +28,7 @@ export const localMiddleware = (req, res, next) => {
                 console.log(err);
             });
         }
+        res.locals.avatar = req.session.user.avatar;
         next();
     }
 };

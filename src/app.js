@@ -7,20 +7,13 @@ import cookieParser from "cookie-parser";
 import globalRouter from "./routers/globalRouter";
 
 const app = express();
-
-app.use(helmet({
-    contentSecurityPolicy: {
-        useDefaults: true,
-        directives: {
-            "default-src": "*",
-            "img-src": "* data",
-        }
-    },
-    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
-}));
 app.set("view engine", "pug");
 app.set("views", `${process.cwd()}/src/views/pages`);
 
+app.use(helmet({
+    contentSecurityPolicy: false,
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
+}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -8,9 +8,9 @@ export const getUpload = (req, res) => {
     return res.render("upload", { pageTitle: "Upload Video |" });
 };
 export const postUpload = async (req, res) => {
-    const { title, description } = req.body;
-    const { path } = req.file;
     try {
+        const { title, description } = req.body;
+        const { path } = req.file;
         const newvideo = await Video.create({
             title,
             description: description || "",
@@ -22,8 +22,7 @@ export const postUpload = async (req, res) => {
         user.videos.push(newvideo._id);
         user.save();
     } catch (error) {
-        console.log(error);
-
+        return res.redirect("/video/upload");
     }
     return res.redirect("/video");
 };

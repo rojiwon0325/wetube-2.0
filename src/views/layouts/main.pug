@@ -4,10 +4,10 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        // script(src="https://kit.fontawesome.com/8aed175674.js", crossorigin="anonymous")
-        link(rel="stylesheet", href="https://unpkg.com/mvp.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+        link(rel="stylesheet", href="/static/css/styles.css")
         title #{pageTitle} WeTube
-    body
+    body#body
         include ../partials/header
         block content
-        include ../partials/footer
+    script(src="/static/js/main.js")
