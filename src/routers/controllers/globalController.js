@@ -5,7 +5,7 @@ import User from "../../models/User"
 
 export const home = async (req, res) => {
     try {
-        const videos = await Video.find({}).sort({ createdAt: "desc" });
+        const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("creator");
         return res.render("home", { videos });
     } catch (error) {
         const videos = [];
@@ -66,7 +66,7 @@ export const results = async (req, res) => {
             title: {
                 $regex: new RegExp(`\\b${search_query.split(" ").join("|")}\\b`, "ig"),
             }
-        }).sort({ createdAt: "desc" });
+        }).sort({ createdAt: "desc" }).populate("creator");
     }
     res.locals.search_query = search_query;
     return res.render("search", { pageTitle: `${search_query} |`, videos });
@@ -75,11 +75,12 @@ export const results = async (req, res) => {
 
 export const watch = async (req, res) => {
     const reg = /([0-9a-f]{24})/g;
-    const id = req.query.v.match(reg)
+    const id = req.query.v.match(reg);
     if (req.query.v == id) {
-        const video = await Video.findById(id).populate("creator");
+        const video = await Video.findById(id).populate("meta.creator");
         if (video) {
-            return res.render("watch", { pageTitle: video ? `${video.title} |` : "", video });
+            const now = new Date();
+            return res.render("watch", { pageTitle: video ? `${video.title} |` : "", video, now });
         }
     } else if (id) {
         return res.redirect(`/watch?v=${id}`)

@@ -1,1 +1,50 @@
-$black: #191919;
+$black: rgb(24,24,24);
+$sideblack: rgba(33,33,33,0.98);
+$background-color: $black;
+
+*{
+    --watch-player-width-ratio: 16;
+    --watch-player-height-ratio: 9;
+    --space-below-player: 136px;
+    // height에 따라 뭔가 달라짐
+
+    --watch-sidebar-width: 402px;
+    --watch-sidebar-min-width: 300px;
+    --masthead-height: 56px;
+    --margin-6x: 24px; // 4x[]
+
+    --watch-min-player-width: calc( var(--watch-min-player-height) * ( var(--watch-player-width-ratio) / var(--watch-player-height-ratio) ) );
+    --watch-max-player-width: calc( (100vh - (var(--masthead-height) + var(--margin-6x) + var(--space-below-player))) * (var(--watch-player-width-ratio) / var(--watch-player-height-ratio)) );
+    --watch-max-player-height: calc( (100vh - (var(--masthead-height) + var(--margin-6x) + var(--space-below-player))) );
+}
+*{
+    @media (max-width: 510px){
+        --items-per-row: 1;
+    }
+
+    @media (min-width : 511px) and (max-width : 815px){
+        --items-per-row: 2;
+    }
+
+    @media (min-width : 816px) and (max-width : 1070px){
+        --items-per-row: 3;
+    }
+
+    @media (min-width : 1071px) and (max-width : 1725px){
+        --items-per-row: 4;
+    }
+
+    @media (min-width : 1726px){
+        --items-per-row: 5;
+    }
+
+    @media (max-width: 1016px){
+        --watch-min-player-height: 240px;
+    }
+    @media (min-width: 1017px) and (max-width: 1343px){
+        --watch-min-player-height: 360px;
+    }
+    @media (min-width: 1344px){
+        --watch-min-player-height: 480px;
+    }
+}

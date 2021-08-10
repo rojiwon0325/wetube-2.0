@@ -1,0 +1,202 @@
+.watchContainer{
+    width: 100%;
+    .watch_column{
+        max-width: calc(1280px + (var(--watch-sidebar-width) + (3 * var(--margin-6x))));
+        display: flex;
+        justify-content: center;
+        .watch_primary{
+            padding-top: var(--margin-6x);
+            padding-right: var(--margin-6x);
+            margin-left: var(--margin-6x);
+            min-width: var(--watch-min-player-width);
+            flex: 1;
+            .player_container_outer{
+                position: relative;
+                min-width: var(--watch-min-player-width);
+                max-width: var(--watch-max-player-width);
+                margin: 0 auto;
+                .player_container_inner{
+                    position: relative;
+                    padding-top: calc( var(--watch-player-height-ratio) / var(--watch-player-width-ratio) * 100% );
+                }
+            }
+            .watch_video_info{
+                --button-icon-size: 36px;
+                position: relative;
+                border-bottom: 1px solid rgba(255,255,25,0.1);
+                padding: 20px 0px 8px 0px;
+                width: 100%;
+                .watch_video_info_contents{
+                    .watch_video_title{
+                        display: block;
+                        max-height: calc( 2 * 2.6rem );
+                        overflow: hidden;
+                        font-size: 1.8rem;
+                        font-weight: 400;
+                        line-height: 2.6rem;
+                        color: white;
+                        word-break: break-word;
+                    }
+                    .watch_video_meta{
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+            .watch_meta{
+                display: block;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    margin-bottom: 24px;
+                    padding-bottom: 16px;
+                .watch_meta_contents{
+                    .watch_meta_first{
+                        margin-bottom: 12px;
+                        padding-top: 16px;
+                        display: flex;
+                        flex-direction: row;
+                        .watch_channel_left{
+                            display: flex;
+                            flex: 1;
+                            flex-direction: row;
+                            .watch_channel_anchor{
+                                display: inline-block;
+                                cursor: pointer;
+                                text-decoration: none;
+                                color: white;
+                                .watch_channel_avatar{
+                                    margin-right: 16px;
+                                    width: 48px;
+                                    height: 48px;
+                                    border-radius: 50%;
+                                    overflow: hidden;
+                                }
+                            }
+                            .watch_channel_info{
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                .watch_channel_name{
+                                    color: white;
+                                    display: flex;
+                                    font-size: 1.4rem;
+                                    font-weight: 500;
+                                    line-height: 1.6rem;
+                                    letter-spacing: normal;
+                                    align-self: flex-start;
+                                }
+                                .watch_channel_subscription{
+                                    color: rgb(170,170,170);
+                                    margin-right: 4px;
+                                    font-size: 1.3rem;
+                                    font-weight: 400;
+                                    line-height: 1.8rem;
+                                    letter-spacing: inherit;
+                                    text-transform: none;
+                                }
+                            }
+                        }
+                        .watch_channel_right{
+                            display: flex;
+                        }
+                    }
+                    .watch_meta_second{
+                        margin-left: 64px;
+                        font-size: 1.4rem;
+                        font-weight: 400;
+                        line-height: 2.1rem;
+                        letter-spacing: normal;
+                        .watch_description_view{
+                            overflow: hidden;
+                            max-height: 60px;
+                            word-wrap: break-word;
+                            min-width: 0;
+                            .watch_description_content{
+                                display: block;
+                                max-width: 615px;
+                                color: white;
+
+                                word-wrap: break-word;
+                                font-size: 1.4rem;
+                                font-weight: 400;
+                                line-height: 2.1rem;
+                                letter-spacing: normal;
+                            }
+                        }
+                        .watch_description_btns{
+                            position: relative;
+                            margin: 0;
+                            padding: 0;
+                            .watch_description_btn{
+                                margin-top: 8px;
+                                font-size: 1.3rem;
+                                font-weight: 500;
+                                letter-spacing: 0.007px;
+                                text-transform: uppercase;
+                                text-align: center;
+                                cursor: pointer;
+                                user-select: none;
+                                background: inherit;
+                                color: rgb(170,170,170);
+                            }
+                        }
+                        .more{
+                            max-height: fit-content; 
+                        }
+                    }
+                }
+            }
+        }
+        .watch_secondary{
+            padding-top: 24px;
+            padding-right: 24px;
+            width: 402px;
+            min-width: 300px;
+            height: 500px;
+            background-color: gray;
+        }
+    }
+}
+
+#player_container{
+    //user-select: none;
+    -webkit-user-drag: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    .player_video{
+        display: block;
+        width: 100%;
+        height: 100%;
+        //user-select: none;
+        -webkit-user-drag: none;
+    }
+    .player_controls{
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        background-color: red;
+        bottom: 0;
+    }
+}
+
+@media (min-width: 1017px) {
+    .watch_column{            
+        min-width: calc( var(--watch-min-player-height) * (var(--watch-player-width-ratio) / var(--watch-player-height-ratio)) + 3 * var(--margin-6x) + var(--watch-sidebar-min-width));
+        .watch_primary{
+            max-width: var(--watch-max-player-width);
+        }
+    }
+}
+
+@media (max-width: 1016px){
+    .watch_secondary{
+        display: none;
+    }
+}

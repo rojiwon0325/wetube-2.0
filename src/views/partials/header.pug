@@ -8,10 +8,15 @@ header.header
     .header-column.center
         .header_item
             .search_wrap
-                input(form="search-form", id="search-input", autocapitalize="none", autocomplete="off", autocorrect="off", name="search_query", type="text", spellcheck="false", placeholder="Search", value=search_query).search_input
-                button(form="search-form", type="submit").search_button
+                .search_input_wrap
+                    input(form="search-form", id="search-input", autocapitalize="none", autocomplete="off", autocorrect="off", name="search_query", type="text", spellcheck="false", placeholder="Search", value=search_query).search_input
+                button(form="search-form", type="submit", id="search_button").search_button
                     i.fas.fa-search
     .header-column.right
+        .header_item
+            button.header_search
+                i.fas.fa-search
+            //평소엔 안보이다가 화면너비가 작을때 나타남, 클릭시 헤더전체가 검색창으로 덮힘
         if login
             .header_item
                 a(href="/video/upload").header_upload
@@ -21,11 +26,11 @@ header.header
                     img(src=avatar)
                 ul.personalTools
                     .header_btn
-                        a(href="/user") MY CHANNEL
+                        a(href="/user").header_render MY CHANNEL
                     .header_btn
-                        a(href="/video") MY VIDEO
+                        a(href="/video").header_render MY VIDEO
                     .header_btn
-                        label(for="header_logout_input").header_logout_label LOGOUT
+                        label(for="header_logout_input").header_render LOGOUT
                         input(form="login-form", type="submit", name="logout")#header_logout_input
 
         else

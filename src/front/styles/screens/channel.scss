@@ -1,0 +1,128 @@
+.channelContainer{
+    width: 100%;
+    .channel_banner{
+        background-color: rgba(255,0,0,0.5);
+        width: 100%;
+        height: 16vw;
+    }
+    .channel_main{
+        background-color: rgba(0,255,0,0.5);
+        width: 100%;
+        height: 150px;
+        .channel_info{
+            width: 100%;
+            height: 100px;
+            padding: 0 100px;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .channel_info_left{
+                display: flex;
+                height: 100%;
+                .channel_avatar{
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                }
+                .channel_info_details{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    height: 100%;
+                    padding: 0 20px;
+                    .channel_name{
+                        font-size: 25px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .channel_info_right{
+            position: relative;
+            .channel_edit{
+                cursor: pointer;
+                background-color: red;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 7px;
+                font-size: 17px;
+                user-select: none;
+            }
+            .channel_edit:hover{
+                background-color: rgb(200,0,0);
+            }
+            .edit_channel_tools{
+                position: absolute;
+                top: 40px;
+                right: 0;
+                background-color: black;
+                display: none;
+                padding: 10px 0;
+                border: 1px solid rgb(50,50,50);
+                border-top: none;
+                border-radius: 5px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                font-size: 16px;
+                .edit_tool{
+                    width: 200px;
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    .edit_channel_label{
+                        width: 100%;
+                        padding: 10px;
+                        user-select: none;
+                        cursor: pointer;
+                    }
+                    .label_inactive{
+                        background-color: rgb(50,50,50);
+                        color: gray;
+                    }
+                }
+                .edit_channel_name{
+                    flex: 1;
+                    height: 30px;
+                    margin: 10px;
+                    margin-bottom: 0;
+                    background-color: rgb(50,50,50) ;
+                    padding: 3px 6px;
+                    border-radius: 3px;
+                    .edit_channel_input{
+                        height: 24px;
+                        line-height: 24px;
+                        color: white;
+                        font-size: 16px;
+                    }
+                }
+                .boundary{
+                    margin: 10px;
+                    border-top: solid gray 1px;
+                }
+                .edit_channel_btn{
+                    background-color: red;
+                    color: white;
+                    outline: none;
+                    border: none;
+                    border-radius: 3px;
+                    padding: 5px 10px;
+                    cursor: pointer;
+                    font-size: 15px;
+                }
+                .hidden{
+                    display: none;
+                }
+            }
+            .tools-active{
+                display: block;
+            }
+        }
+    }
+    .channel_contents{
+        background-color: rgba(0,0,255,0.5);
+        width: 100%;
+        height: 200px;
+    }
+}

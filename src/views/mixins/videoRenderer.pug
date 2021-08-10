@@ -1,6 +1,4 @@
 mixin videoRenderer(video)
-    .videoRenderer-wrap
-        a(href=`/watch?v=${video._id}`)=video.title
-        ul
-            li #{video.description}
-            li Posted #{video.createdAt}
+    .videoRenderer_wrap
+        a(href=`/watch?v=${video._id}`)
+            img(src=video.thumbnail)

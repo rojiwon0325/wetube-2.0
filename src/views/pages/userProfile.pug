@@ -1,8 +1,39 @@
 extends ../layouts/main
 
 block content
-    h1 USERPROFILE
-    h2=user.name
-    img(src=user.avatar)
-    if (login && user._id == me._id)
-        a(href=`/user/${user._id}/edit`) edit
+    .channelContainer
+        .channel_banner
+        .channel_main
+            .channel_info
+                .channel_info_left
+                    img(src=user.avatar).channel_avatar
+                    .channel_info_details
+                        .channel_name=user.name
+                        .channel_subscriber-count.hidden
+                .channel_info_right
+                    if (login && user._id == me._id)
+                        button.channel_edit EDIT
+                        ul.edit_channel_tools
+                            .hidden
+                                form(id="editChannel-form", action="/user/edit", method="POST", enctype="multipart/form-data")
+                                // input().banner
+                                input(form="editChannel-form", type = "file", name = "avatar" accept="image/*", id="editChannel-form_avatar")
+                                input(form="editChannel-form", type="checkbox", name="check", id="editChannel-form_check")
+                            .edit_tool.hidden
+                                // banner
+                                // label
+                            .edit_tool
+                                label(for="editChannel-form_avatar").edit_channel_label.avatar 프로필 이미지 수정
+                            .edit_tool
+                                label(for="editChannel-form_check").edit_channel_label.check.label_inactive 구글 프로필 사용
+                            .edit_tool
+                                .edit_channel_name
+                                    input(form="editChannel-form", type = "text", name = "name", placeholder=me.name, id="editChannel-form_name").edit_channel_input
+                            .boundary
+                            .edit_tool
+                                input(form="editChannel-form", type="submit", value="UPDATE").edit_channel_btn
+                                button(form="editChannel-form", type="reset")#edit_channel_cancel.edit_channel_btn CANCEL
+            .channel_menu
+        .channel_contents
+block scripts
+    script(src="/static/js/editChannel.js")

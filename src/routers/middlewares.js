@@ -23,12 +23,13 @@ export const localMiddleware = (req, res, next) => {
         res.redirect(req.originalUrl);
     } else {
         res.locals.login = Boolean(req.session.user);
-        if (Boolean(req.session.referer) && Boolean(req.session.user) != true) {
+        if (Boolean(req.session.referer) && res.locals.login != true) {
             req.session.destroy((err) => {
                 console.log(err);
             });
+        } else if (res.locals.login) {
+            res.locals.avatar = req.session.user.avatar;
         }
-        res.locals.avatar = req.session.user.avatar;
         next();
     }
 };
@@ -40,5 +41,11 @@ export const privateMiddleware = (req, res, next) => {
         res.status(403).redirect(req.headers.referer || "/");
     }
 };
+const multerStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, `uploads/${file.fieldname}s`);
+    }
+});
 
-export const multerMiddleware = multer({ dest: "uploads/" });
+export const multerMW = multer({ storage: multerStorage });
+

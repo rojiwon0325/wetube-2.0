@@ -1,0 +1,25 @@
+.homeContainer{
+    width: 100%;
+    padding-top: 24px;
+    display: flex;
+    justify-content: center;
+    .home_contents{
+        width: calc(100% - 32px);
+        max-width: calc(var(--items-per-row) * 320px + 16px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
+
+.videoRenderer_wrap{
+    width: calc(100% / var(--items-per-row) - 16.01px);
+    cursor: pointer;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 40px;
+    img{
+        width: 100%;
+    };
+}

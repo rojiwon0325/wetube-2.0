@@ -1,11 +1,14 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
-const ENTRY_FILE = path.join(__dirname, "src", "front", "scripts", "main.js");
 const OUTPUT_DIR = path.join(__dirname, "static");
 
 const config = {
-    entry: ENTRY_FILE,
+    entry: {
+        main: "./src/front/scripts/main.js",
+        editChannel: "./src/front/scripts/editChannel.js",
+        upload: "./src/front/scripts/upload.js"
+    },
     mode: "development",
     watch: true,
     plugins: [new MiniCssExtractPlugin({ filename: "css/styles.css" })],
@@ -31,7 +34,7 @@ const config = {
     },
     output: {
         path: OUTPUT_DIR,
-        filename: "js/main.js",
+        filename: "js/[name].js",
         clean: true
     }
 }

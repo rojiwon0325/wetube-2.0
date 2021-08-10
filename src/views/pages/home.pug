@@ -2,10 +2,13 @@ extends ../layouts/main
 include ../mixins/videoRenderer
 
 block content
-    h1 HOME
-    each video in videos
-        +videoRenderer(video)
-    else
-        div nothing found
-
-    a(href="watch?v=32432523") button
+    .homeContainer
+        .home_contents
+            each video in videos
+                +videoRenderer(video)
+                +videoRenderer(video)
+                +videoRenderer(video)
+                +videoRenderer(video)
+                +videoRenderer(video)
+            else
+                div nothing found

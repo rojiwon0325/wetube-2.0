@@ -1,4 +1,45 @@
 extends ../layouts/main
 
 block content
-    div=video? video.title : "none"
+    .watchContainer
+        .watch_column
+            .watch_primary
+                .watch_primary_inner
+                    .player_container_outer
+                        .player_container_inner
+                            #player_container
+                                video(src=video.source, controls=true).player_video
+                                //.player_controls
+                    .watch_video_info
+                        .watch_video_info_contents
+                            h1.watch_video_title=video.title
+                            .watch_video_meta
+                                .watch_video_meta_text
+                                .watch_video_meta_menu
+                    .watch_meta
+                        .watch_meta_contents
+                            .watch_meta_first
+                                .watch_channel_left
+                                    a(href=`/user/${video.meta.creator._id}`).watch_channel_anchor
+                                        img(src=video.meta.creator.avatar).watch_channel_avatar
+                                    .watch_channel_info
+                                        a(href=`/user/${video.meta.creator._id}`).watch_channel_anchor
+                                            .watch_channel_name=video.meta.creator.name
+                                        .watch_channel_subscription.hidden 구독자 325만명
+                                .watch_channel_right
+                                    .watch_channel_subscription
+                            .watch_meta_second
+                                .watch_description_view
+                                    span.watch_description_content=video.meta.description
+                                #watch_description_more.watch_description_btns
+                                    button#watch_description_more_btn.watch_description_btn more
+                                #watch_description_less.watch_description_btns.hidden
+                                    button#watch_description_less_btn.watch_description_btn less
+
+                    .watch_related
+                    .comments
+            .watch_secondary
+                .watch_secondary_inner
+                    .watch_related
+                        .videoRenderer
+                        .videoRenderer
