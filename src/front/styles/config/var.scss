@@ -41,7 +41,7 @@ $background-color: $black;
     @media (max-width: 1016px){
         --watch-min-player-height: 240px;
     }
-    @media (min-width: 1017px) and (max-width: 1343px){
+    @media (min-width: 1017px) and (max-width: 1343px), (max-height: 629px) and (min-width: 674px){
         --watch-min-player-height: 360px;
     }
     @media (min-width: 1344px){

@@ -5,16 +5,16 @@ block content
         .hidden
             form(id="upload-form", method="POST", enctype="multipart/form-data")
             input(form="upload-form", type = "file", name = "video", accept="video/*", required)#upload_file_input
-            input(form="upload-form", type = "file", name = "thumbnail", accept="image/*")#upload_img_input
+            input(form="upload-form", type = "file", name = "thumbnail", accept="image/*", required)#upload_img_input
         .form_container
             .form_header
                 h1.form_title VIDEO UPLOAD
             .form_content_wrap
                 .form_content_left
-                    input(form="upload-form", type = "text", name = "title", placeholder="Title", required).upload_title_input.form_input
+                    input(form="upload-form", type="text", name="title", placeholder="Title", required).upload_title_input.form_input
                     textarea(form="upload-form", name="description", cols="30", rows="10", placeholder="Description").upload_description_input.form_input
                 .form_content_right
-                    video(src="#", controls=false)#preview_video.upload_preview
+                    video(src="#", controls, preload="metadata", playsinline)#preview_video.upload_preview
                     .upload_btns
                         label(for="upload_file_input").form_btn Select Video File
                         button#upload_file_cancel.form_btn CANCEL

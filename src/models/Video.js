@@ -9,6 +9,7 @@ const schema = new mongoose.Schema(
         },
         thumbnail: {
             type: String,
+            required: "Thumbnail is required"
         },
         source: {
             type: String,

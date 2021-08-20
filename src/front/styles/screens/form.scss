@@ -105,6 +105,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             .form_submit_input{
                 padding: 10px 35px;
                 background-color: red;

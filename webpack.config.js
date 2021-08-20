@@ -7,7 +7,9 @@ const config = {
     entry: {
         main: "./src/front/scripts/main.js",
         editChannel: "./src/front/scripts/editChannel.js",
-        upload: "./src/front/scripts/upload.js"
+        upload: "./src/front/scripts/upload.js",
+        watch: "./src/front/scripts/watch.js",
+        videoPlayer: "./src/front/scripts/videoPlayer.js",
     },
     mode: "development",
     watch: true,

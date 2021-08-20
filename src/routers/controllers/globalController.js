@@ -87,3 +87,17 @@ export const watch = async (req, res) => {
     }
     return res.render("404");
 }
+
+export const view = async (req, res) => {
+    const reg = /([0-9a-f]{24})/g;
+    const id = req.query.v.match(reg);
+    if (req.query.v == id) {
+        const video = await Video.findById(id);
+        if (video) {
+            video.meta.views += 1;
+            await video.save();
+            return res.status(200);
+        }
+    }
+    return res.status(404);
+};

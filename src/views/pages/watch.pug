@@ -2,19 +2,52 @@ extends ../layouts/main
 
 block content
     .watchContainer
+        .watch_theater_container
         .watch_column
             .watch_primary
                 .watch_primary_inner
                     .player_container_outer
                         .player_container_inner
-                            #player_container
-                                video(src=video.source, controls=true).player_video
-                                //.player_controls
+                            #player_container(data-id=video._id)
+                                video(src=video.source, playsinline)#player_video
+                                .player_bottom.opacity
+                                    .progress_container
+                                        div(tabindex="0").progress_wrap
+                                            .progress_hover
+                                            .progress_loaded
+                                            .progress_played
+                                            .progress_handler_container
+                                                .progress_handler
+                                    .player_controls
+                                        .player_controls_left
+                                            button#player_play.player_btn
+                                                i.fas.fa-play.fa-2x
+                                            a(href="#").player_btn
+                                                i.fas.fa-step-forward.fa-2x
+                                            .player_volume_container
+                                                button#player_mute.player_btn
+                                                    i.fas.fa-volume-up.fa-2x
+                                                .player_volume_range_wrap
+                                                    div(tabindex="-1").player_volume_range
+                                                        .player_volume_handler
+                                            .player_time_container
+                                                span#player_time_current 00:00
+                                                span#player_time_separator  / 
+                                                span#player_time_duration 00:00
+                                        .player_controls_right
+                                            button#player_theaterView.player_btn
+                                                svg(widh="100%", height="100%", viewBox="0 0 36 36")
+                                                    path(d="m 28,11 0,14 -20,0 0,-14 z m -18,2 16,0 0,10 -16,0 0,-10 z", fill-rule="evenodd")
+                                            button#player_expand.player_btn
+                                                i.fas.fa-expand.fa-2x
                     .watch_video_info
                         .watch_video_info_contents
                             h1.watch_video_title=video.title
                             .watch_video_meta
                                 .watch_video_meta_text
+                                    .watch_video_views views: #{video.meta.views}
+                                    .watch_video_sep &nbsp;•&nbsp;
+                                    .watch_video_createdAt #{video.meta.createdAt.getFullYear()}. #{video.meta.createdAt.getMonth()+1}. #{video.meta.createdAt.getDate()}.
                                 .watch_video_meta_menu
                     .watch_meta
                         .watch_meta_contents
@@ -23,23 +56,59 @@ block content
                                     a(href=`/user/${video.meta.creator._id}`).watch_channel_anchor
                                         img(src=video.meta.creator.avatar).watch_channel_avatar
                                     .watch_channel_info
-                                        a(href=`/user/${video.meta.creator._id}`).watch_channel_anchor
-                                            .watch_channel_name=video.meta.creator.name
+                                        a(href=`/user/${video.meta.creator._id}`).watch_channel_name=video.meta.creator.name
                                         .watch_channel_subscription.hidden 구독자 325만명
                                 .watch_channel_right
                                     .watch_channel_subscription
                             .watch_meta_second
                                 .watch_description_view
-                                    span.watch_description_content=video.meta.description
-                                #watch_description_more.watch_description_btns
-                                    button#watch_description_more_btn.watch_description_btn more
-                                #watch_description_less.watch_description_btns.hidden
-                                    button#watch_description_less_btn.watch_description_btn less
+                                    .watch_description_content sdfsdfdopsfjsdopfjpodsfjdposjfpdosjfdposfjdposjfdpojfposdjfdpofjdposfjdopsjfodfodfodfkofdkmdsposvdmpsdvmpdsmopsdposdposdposdvmpvdsmpdspombvsmdfbnosdoinsdnosjnfsjnjndsgnodsnosdgjnosjonsdgjonsdjnosdgjnodsjnosdgjnosdgjnodgsjondsgjnodgsjnodgsojngsjnogsonjgsdnogsdonsdgnosdgniosdginodsgindginegoingseoingdsongdsindgsoinsdgnogdsoigsdinogsdhidgsiosdghiosdgiosggsoigsdhgiosdghsdioghsdioghsdioghdsoighdisghsdioghdgdsoighdsoighdioghsdoighsdoil
+                                .watch_description_btns
+                                    button.watch_description_btn more
 
-                    .watch_related
-                    .comments
+                    
+                    .watch_comments_container
+                        .watch_comments_header
+                            .watch_comments_meta 댓글 55개
+                            .watch_comments_input
+                                .watch_comments_input_avatar
+                                    if login
+                                        img(src=avatar)
+                                    else
+                                        img(src="https://yt3.ggpht.com/a/default-user=s48-c-k-c0x00ffffff-no-rj")
+                                .watch_comments_input_inner
+                                    .watch_comments_input_creation-box
+                                        div(contenteditable="true", aria-label="Write Comment...").watch_comments_textarea
+                                        .focused_underline
+                                    if login
+                                        .watch_comments_input_btns
+                                            button.watch_btn cancel
+                                            button.watch_btn comment
+                        .watch_comments_contents
+                            .watch_comments_thread
+                                .watch_comments_thread_inner
+                                    a.watch_comments_thread_avatar
+                                        img(src="https://yt3.ggpht.com/a/default-user=s48-c-k-c0x00ffffff-no-rj")
+                                    .watch_comments_main
+                                        .watch_comments_main_header
+                                            a.watch_comments_badge jiwon ro
+                                        .watch_comments_main_text
+                                            .watch_comments_main_text_content sdfsdfdopsfjsdopfjpodsfjdposjfpdosjfdposfjdposjfdpojfposdjfdpofjdposfjdopsjfodfodfodfkofdkmdsposvdmpsdvmpdsmopsdposdposdposdvmpvdsmpdspombvsmdfbnosdoinsdnosjnfsjnjndsgnodsnosdgjnosjonsdgjonsdjnosdgjnodsjnosdgjnosdgjnodgsjondsgjnodgsjnodgsojngsjnogsonjgsdnogsdonsdgnosdgniosdginodsgindginegoingseoingdsongdsindgsoinsdgnogdsoigsdinogsdhidgsiosdghiosdgiosggsoigsdhgiosdghsdioghsdioghsdioghdsoighdisghsdioghdgdsoighdsoighdioghsdoighsdoil
+                                        .watch_comments_main_text_btns
+                                            button.watch_comments_main_text_btn more
+                                        .watch_comments_main_btns
+                                    .watch_comments_action-menu
+                                .watch_comments_thread_replies
+                                    //avatarwidth 24px
+                            .watch_comments_thread
+                                .watch_comments_thread_inner
+
             .watch_secondary
                 .watch_secondary_inner
-                    .watch_related
+                    #watch_related.watch_related
                         .videoRenderer
                         .videoRenderer
+
+block scripts
+    script(src="/static/js/watch.js")
+    script(src="/static/js/videoPlayer.js")

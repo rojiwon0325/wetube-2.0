@@ -17,9 +17,20 @@ upload_file_cancel.addEventListener("click", () => {
     upload_file_input.value = null;
     document.getElementById("preview_video").setAttribute("controls", false);
     document.getElementById("preview_video").src = "#";
+    upload_file_cancel.blur();
 });
 upload_img_cancel.addEventListener("click", () => {
     upload_img_input.value = null;
     document.getElementById("preview_img").style.opacity = 0;
     document.getElementById("preview_img").src = "#";
+    upload_img_cancel.blur();
 });
+
+upload_file_input.oninvalid = (e) => {
+    alert("Please Select a Video.");
+};
+
+upload_img_input.oninvalid = (e) => {
+    alert("Please Select a Thumbnail.");
+    document.querySelector(".form_submit_input").click();
+};
