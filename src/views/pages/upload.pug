@@ -5,8 +5,10 @@ block content
         .hidden
             form(id="upload-form", method="POST", enctype="multipart/form-data")
             input(form="upload-form", type = "file", name = "video", accept="video/*", required)#upload_file_input
-            input(form="upload-form", type = "file", name = "thumbnail", accept="image/*", required)#upload_img_input
+            input(form="upload-form", type = "file", name = "thumbnail", accept="image/*" )#upload_img_input
         .form_container
+            .loading-screen.hidden
+                .loading-ring
             .form_header
                 h1.form_title VIDEO UPLOAD
             .form_content_wrap

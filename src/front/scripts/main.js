@@ -1,3 +1,4 @@
+import "regenerator-runtime";
 import "../styles/styles.scss"
 
 const header = document.querySelector(".header");

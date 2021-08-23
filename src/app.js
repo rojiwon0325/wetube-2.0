@@ -12,7 +12,9 @@ app.set("views", `${process.cwd()}/src/views/pages`);
 
 app.use(helmet({
     contentSecurityPolicy: false,
-    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+    crossOriginEmbedderPolicy: true,
+    crossOriginOpenerPolicy: "same-origin",
 }));
 app.use(cookieParser());
 app.use(express.json());

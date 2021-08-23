@@ -67,16 +67,24 @@ const hiddenBottom = () => {
         if (timer != null) {
             clearTimeout(timer);
         }
+        watch_player_bottom.classList.remove("opacity");
+        watch_player.style.cursor = "none";
+    }
+};
+const hiddenBottom3s = () => {
+    if (!watch_player_video.paused) {
+        if (timer != null) {
+            clearTimeout(timer);
+        }
         timer = setTimeout(() => {
             watch_player_bottom.classList.remove("opacity");
             watch_player.style.cursor = "none";
         }, 3000);
     }
 };
-
 const view3sec = () => {
     viewBottom();
-    hiddenBottom();
+    hiddenBottom3s();
 };
 
 
@@ -110,16 +118,16 @@ const handlePlayClick = () => {
     if (watch_player_video.paused) {
         watch_player_video.play();
         watch_player_play.innerHTML = "<i class = 'fas fa-pause fa-2x'></i>";
-        hiddenBottom();
+        hiddenBottom3s();
     } else {
-        watch_progress_played.style.transitionDuration = "0s";
-        watch_progress_handler.style.transitionDuration = ".2s";
         watch_player_video.pause();
         watch_player_play.innerHTML = "<i class = 'fas fa-play fa-2x'></i>";
         viewBottom();
     }
 };
 const handleProgress = (e) => {
+    watch_progress_played.style.transitionDuration = "0s";
+    watch_progress_handler.style.transitionDuration = "0s";
     const base = watch_progress.getBoundingClientRect().left;
     let value = e.clientX - base;
     if (value < 0) {
@@ -176,6 +184,7 @@ if (watch_player_mute) {
 
 if (watch_theaterView) {
     watch_theaterView.addEventListener("click", () => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
         view3sec();
         if (watch_theater_container.childNodes.length == 0) {
             watch_theater_container.insertBefore(watch_player, null);
@@ -210,18 +219,18 @@ if (watch_player_video) {
         view3sec();
         watch_player.style.cursor = "default";
     });
-
+    watch_player.addEventListener("mouseleave", hiddenBottom);
     watch_progress.addEventListener("mousemove", (e) => {
         viewBottom();
-        const width = e.clientX - watch_progress_handler.getBoundingClientRect().left;
+        const width = e.clientX - watch_progress_handler.getBoundingClientRect().left - 6.5;
         if (width > 0) {
-            watch_progress_hover.style.left = (watch_progress_handler.getBoundingClientRect().left - watch_progress.getBoundingClientRect().left) + "px";
+            watch_progress_hover.style.left = (watch_progress_handler.getBoundingClientRect().left + 6.5 - watch_progress.getBoundingClientRect().left) + "px";
             watch_progress_hover.style.transform = `scaleX(${width / watch_progress.clientWidth})`;
         }
     });
 
     window.addEventListener("mouseup", () => {
-        hiddenBottom();
+        hiddenBottom3s();
         window.removeEventListener("mousemove", handleVolumeSlider);
         window.removeEventListener("mousemove", handleProgress);
     });
@@ -245,8 +254,8 @@ if (watch_player_video) {
             watch_progress_played.style.transitionDuration = "0s";
             watch_progress_handler.style.transitionDuration = "0s";
         } else {
-            watch_progress_played.style.transitionDuration = ".2s";
-            watch_progress_handler.style.transitionDuration = ".2s";
+            watch_progress_played.style.transitionDuration = ".25s";
+            watch_progress_handler.style.transitionDuration = ".25s";
         }
         watch_player_time_current.innerText = doubleToTime(watch_player_video.currentTime);
         watch_progress_played.style.transform = `scaleX(${watch_player_video.currentTime / watch_player_video.duration})`;

@@ -9,7 +9,7 @@ block content
                     .player_container_outer
                         .player_container_inner
                             #player_container(data-id=video._id)
-                                video(src=video.source, playsinline)#player_video
+                                video(src=video.source, playsinline, type="video/*", poster=video.thumbnail)#player_video
                                 .player_bottom.opacity
                                     .progress_container
                                         div(tabindex="0").progress_wrap
@@ -45,7 +45,7 @@ block content
                             h1.watch_video_title=video.title
                             .watch_video_meta
                                 .watch_video_meta_text
-                                    .watch_video_views views: #{video.meta.views}
+                                    .watch_video_views #{video.meta.views} views
                                     .watch_video_sep &nbsp;•&nbsp;
                                     .watch_video_createdAt #{video.meta.createdAt.getFullYear()}. #{video.meta.createdAt.getMonth()+1}. #{video.meta.createdAt.getDate()}.
                                 .watch_video_meta_menu
@@ -54,7 +54,7 @@ block content
                             .watch_meta_first
                                 .watch_channel_left
                                     a(href=`/user/${video.meta.creator._id}`).watch_channel_anchor
-                                        img(src=video.meta.creator.avatar).watch_channel_avatar
+                                        img(src=video.meta.creator.avatar, crossorigin).watch_channel_avatar
                                     .watch_channel_info
                                         a(href=`/user/${video.meta.creator._id}`).watch_channel_name=video.meta.creator.name
                                         .watch_channel_subscription.hidden 구독자 325만명
@@ -73,9 +73,9 @@ block content
                             .watch_comments_input
                                 .watch_comments_input_avatar
                                     if login
-                                        img(src=avatar)
+                                        img(src=avatar, crossorigin)
                                     else
-                                        img(src="https://yt3.ggpht.com/a/default-user=s48-c-k-c0x00ffffff-no-rj")
+                                        img(src="https://yt3.ggpht.com/a/default-user=s48-c-k-c0x00ffffff-no-rj", crossorigin)
                                 .watch_comments_input_inner
                                     .watch_comments_input_creation-box
                                         div(contenteditable="true", aria-label="Write Comment...").watch_comments_textarea
@@ -88,7 +88,7 @@ block content
                             .watch_comments_thread
                                 .watch_comments_thread_inner
                                     a.watch_comments_thread_avatar
-                                        img(src="https://yt3.ggpht.com/a/default-user=s48-c-k-c0x00ffffff-no-rj")
+                                        img(src="https://yt3.ggpht.com/a/default-user=s48-c-k-c0x00ffffff-no-rj", crossorigin)
                                     .watch_comments_main
                                         .watch_comments_main_header
                                             a.watch_comments_badge jiwon ro
