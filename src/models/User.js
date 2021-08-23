@@ -24,7 +24,8 @@ const schema = new mongoose.Schema(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Video"
             }
-        ]
+        ],
+        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
     }
 );
 

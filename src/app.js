@@ -19,8 +19,8 @@ app.use(helmet({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(morgan("dev"));
-
 app.use(
     session({
         secret: process.env.COOKIE_SECRET,

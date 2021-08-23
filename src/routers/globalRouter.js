@@ -1,5 +1,5 @@
 import express from "express";
-import { googleLoginCallback, home, results, view, watch } from "./controllers/globalController";
+import { comment, googleLoginCallback, home, results, view, watch } from "./controllers/globalController";
 import videoRouter from "./videoRouter";
 import userRouter from "./userRouter";
 import { localMiddleware, privateMiddleware } from "./middlewares";
@@ -16,11 +16,14 @@ globalRouter.use(localMiddleware);
 globalRouter.get("/", home);
 globalRouter.get("/results", results);
 globalRouter.get("/watch", watch);
-globalRouter.post("/view", view);
+
 
 globalRouter.use("/user", userRouter);
 
 globalRouter.use(privateMiddleware);
 globalRouter.use("/video", videoRouter);
+
+globalRouter.post("/comment", comment);
+globalRouter.post("/view", view);
 
 export default globalRouter;

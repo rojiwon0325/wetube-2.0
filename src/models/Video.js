@@ -20,6 +20,7 @@ const schema = new mongoose.Schema(
             description: { type: String, default: "", trim: true },
             createdAt: { type: Date, default: Date.now },
             creator: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+            comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
         }
     }
 );

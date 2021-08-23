@@ -273,13 +273,16 @@
                                     &:focus-within .focused_underline{
                                         transform: none;
                                     }
+                                    
                                 }
                                 .watch_comments_input_btns{
                                     display: flex;
                                     flex-direction: row;
                                     align-items: center;
                                     justify-content: flex-end;
-                                    
+                                    .watch_btn{
+                                        user-select: none;
+                                    }
                                 }
                             }
                         }
@@ -331,7 +334,7 @@
                                             line-clamp: 1;
                                             font-size: 1.3rem;
                                             font-weight: 500;
-                                            line-height: 1.8rem;
+                                            line-height: 2rem;
                                             text-overflow: ellipsis;
                                             cursor: pointer;
                                             user-select: none;

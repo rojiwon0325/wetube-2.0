@@ -1,4 +1,5 @@
 extends ../layouts/main
+include ../mixins/comment
 
 block content
     .watchContainer
@@ -62,14 +63,13 @@ block content
                                     .watch_channel_subscription
                             .watch_meta_second
                                 .watch_description_view
-                                    .watch_description_content sdfsdfdopsfjsdopfjpodsfjdposjfpdosjfdposfjdposjfdpojfposdjfdpofjdposfjdopsjfodfodfodfkofdkmdsposvdmpsdvmpdsmopsdposdposdposdvmpvdsmpdspombvsmdfbnosdoinsdnosjnfsjnjndsgnodsnosdgjnosjonsdgjonsdjnosdgjnodsjnosdgjnosdgjnodgsjondsgjnodgsjnodgsojngsjnogsonjgsdnogsdonsdgnosdgniosdginodsgindginegoingseoingdsongdsindgsoinsdgnogdsoigsdinogsdhidgsiosdghiosdgiosggsoigsdhgiosdghsdioghsdioghsdioghdsoighdisghsdioghdgdsoighdsoighdioghsdoighsdoil
+                                    .watch_description_content=video.meta.description
                                 .watch_description_btns
                                     button.watch_description_btn more
-
                     
                     .watch_comments_container
                         .watch_comments_header
-                            .watch_comments_meta 댓글 55개
+                            .watch_comments_meta #{video.meta.comments.length} comments
                             .watch_comments_input
                                 .watch_comments_input_avatar
                                     if login
@@ -82,26 +82,11 @@ block content
                                         .focused_underline
                                     if login
                                         .watch_comments_input_btns
-                                            button.watch_btn cancel
-                                            button.watch_btn comment
+                                            button.watch_btn.watch_comments_cancel cancel
+                                            button.watch_btn.watch_comments_comment comment
                         .watch_comments_contents
-                            .watch_comments_thread
-                                .watch_comments_thread_inner
-                                    a.watch_comments_thread_avatar
-                                        img(src="https://yt3.ggpht.com/a/default-user=s48-c-k-c0x00ffffff-no-rj", crossorigin)
-                                    .watch_comments_main
-                                        .watch_comments_main_header
-                                            a.watch_comments_badge jiwon ro
-                                        .watch_comments_main_text
-                                            .watch_comments_main_text_content sdfsdfdopsfjsdopfjpodsfjdposjfpdosjfdposfjdposjfdpojfposdjfdpofjdposfjdopsjfodfodfodfkofdkmdsposvdmpsdvmpdsmopsdposdposdposdvmpvdsmpdspombvsmdfbnosdoinsdnosjnfsjnjndsgnodsnosdgjnosjonsdgjonsdjnosdgjnodsjnosdgjnosdgjnodgsjondsgjnodgsjnodgsojngsjnogsonjgsdnogsdonsdgnosdgniosdginodsgindginegoingseoingdsongdsindgsoinsdgnogdsoigsdinogsdhidgsiosdghiosdgiosggsoigsdhgiosdghsdioghsdioghsdioghdsoighdisghsdioghdgdsoighdsoighdioghsdoighsdoil
-                                        .watch_comments_main_text_btns
-                                            button.watch_comments_main_text_btn more
-                                        .watch_comments_main_btns
-                                    .watch_comments_action-menu
-                                .watch_comments_thread_replies
-                                    //avatarwidth 24px
-                            .watch_comments_thread
-                                .watch_comments_thread_inner
+                            each cmt in comments
+                                +comment(cmt)
 
             .watch_secondary
                 .watch_secondary_inner

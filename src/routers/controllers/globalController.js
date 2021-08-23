@@ -1,6 +1,7 @@
 import { google } from "googleapis";
 import Video from "../../models/Video";
-import User from "../../models/User"
+import User from "../../models/User";
+import Comment from "../../models/Comment";
 
 
 export const home = async (req, res) => {
@@ -77,10 +78,18 @@ export const watch = async (req, res) => {
     const reg = /([0-9a-f]{24})/g;
     const id = req.query.v.match(reg);
     if (req.query.v == id) {
-        const video = await Video.findById(id).populate("meta.creator");
+        const user = await User.findById(id).populate({
+            path: "videos",
+            model: "Video",
+            populate: {
+                path: "creator",
+                model: "User"
+            }
+        });
+        const video = await Video.findById(id).populate("meta.creator").populate({ path: "meta.comments", mode: Comment, populate: "creator" });
         if (video) {
             const now = new Date();
-            return res.render("watch", { pageTitle: video ? `${video.title} |` : "", video, now });
+            return res.render("watch", { pageTitle: video ? `${video.title} |` : "", video, now, comments: video.meta.comments });
         }
     } else if (id) {
         return res.redirect(`/watch?v=${id}`)
@@ -101,3 +110,31 @@ export const view = async (req, res) => {
     }
     return res.status(404);
 };
+
+export const comment = async (req, res) => {
+    const { text, video, root } = req.body;
+    const newcmt = await Comment.create({
+        text,
+        video,
+        creator: req.session.user._id,
+        root,
+        createdAt: Date.now()
+    });
+    const v = await Video.findById(video);
+    v.meta.comments.push(newcmt);
+    v.save();
+    return res.send({
+        length: v.meta.comments.length,
+        comment: {
+            _id: newcmt._id,
+            text: text,
+            createdAt: newcmt.createdAt,
+            root,
+            creator: {
+                _id: req.session.user._id,
+                name: req.session.user.name,
+                avatar: req.session.user.avatar
+            }
+        }
+    });
+}

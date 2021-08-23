@@ -1,0 +1,17 @@
+mixin comment(cmt)
+    div(data-id=cmt._id).watch_comments_thread
+        .watch_comments_thread_inner
+            a(href=`/user/${cmt.creator._id}`).watch_comments_thread_avatar
+                img(src=cmt.creator.avatar, crossorigin)
+                //img(src="https://yt3.ggpht.com/a/default-user=s48-c-k-c0x00ffffff-no-rj", crossorigin)
+            .watch_comments_main
+                .watch_comments_main_header
+                    a(href=`/user/${cmt.creator._id}`).watch_comments_badge=cmt.creator.name
+                .watch_comments_main_text
+                    .watch_comments_main_text_content sdfsdfdopsfjsdopfjpodsfjdposjfpdosjfdposfjdposjfdpojfposdjfdpofjdposfjdopsjfodfodfodfkofdkmdsposvdmpsdvmpdsmopsdposdposdposdvmpvdsmpdspombvsmdfbnosdoinsdnosjnfsjnjndsgnodsnosdgjnosjonsdgjonsdjnosdgjnodsjnosdgjnosdgjnodgsjondsgjnodgsjnodgsojngsjnogsonjgsdnogsdonsdgnosdgniosdginodsgindginegoingseoingdsongdsindgsoinsdgnogdsoigsdinogsdhidgsiosdghiosdgiosggsoigsdhgiosdghsdioghsdioghsdioghdsoighdisghsdioghdgdsoighdsoighdioghsdoighsdoil
+                .watch_comments_main_text_btns
+                    button.watch_comments_main_text_btn more
+                .watch_comments_main_btns
+            .watch_comments_action-menu
+        .watch_comments_thread_replies
+            //avatarwidth 24px
