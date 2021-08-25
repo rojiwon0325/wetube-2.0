@@ -16,14 +16,15 @@ const schema = new mongoose.Schema(
             required: true,
             ref: "User"
         },
-        video: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: "Video"
-        },
         root: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment",
+            required: "on is required",
+            refPath: "onModel",
+        },
+        rootModel: {
+            type: String,
+            required: true,
+            enum: ["Video", "Comment"]
         },
         replies: [{
             type: mongoose.Schema.Types.ObjectId,
@@ -31,12 +32,6 @@ const schema = new mongoose.Schema(
         }],
     }
 );
-
-schema.pre("save", async function () {
-    if (!Boolean(this.root)) {
-        this.root = this;
-    }
-});
 
 const model = mongoose.model("Comment", schema);
 

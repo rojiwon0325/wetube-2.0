@@ -1,11 +1,11 @@
-import { handleLoadComment, makeNewComment } from "./comments";
+import { handleComment, makeNewComment, stylingComment } from "./comments";
 
 const watch_primary_inner = document.querySelector(".watch_primary_inner");
 const watch_secondary_inner = document.querySelector(".watch_secondary_inner");
 
 const watch_related = document.getElementById("watch_related");
 
-const watch_creation_box = document.querySelectorAll(".watch_comments_input_creation-box");
+const watch_main_comment = document.getElementById("watch_main_comment");
 
 function handleLoadDescription() {
     const view = document.querySelector(".watch_description_view");
@@ -30,7 +30,6 @@ function handleLoadDescription() {
     view.style.display = "-webkit-box";
 }
 
-
 handleLoadDescription();
 
 if (watch_primary_inner) {
@@ -48,43 +47,34 @@ if (watch_primary_inner) {
     });
 }
 
-watch_creation_box.forEach((node) => {
-    const textarea = node.querySelector(".watch_comments_textarea");
-    const logout = document.getElementById("header_login_input");
-    node.addEventListener("click", () => {
-        if (logout) {
-            logout.click();
+//comment
+
+if (watch_main_comment) {
+    handleComment(watch_main_comment);
+    watch_main_comment.querySelector(".focused_underline").style.opacity = 0;
+    watch_main_comment.addEventListener("click", () => {
+        if (document.getElementById("header_login_input")) {
+            document.getElementById("header_login_input").click();
         } else {
-            document.querySelectorAll(".focused_underline").forEach((elem) => { elem.style.opacity = 1; });
+            watch_main_comment.querySelector(".focused_underline").style.opacity = 1;
         }
     });
-    if (!logout) {
-        node.nextSibling.querySelector(".watch_comments_cancel").addEventListener("click", () => {
-            textarea.innerText = "";
+}
+
+fetch(`/comment?v=${document.getElementById("player_container").dataset.id}&date=${Date.now()}&root=Video`)
+    .then(res => res.json())
+    .then(({ length, comments, more }) => {
+        document.querySelector(".watch_comments_meta").innerText = `${length} comments`;
+
+        comments.forEach(cmt => {
+            const node = makeNewComment(cmt);
+            document.querySelector(".watch_comments_contents").appendChild(node);
+            stylingComment(node);
         });
-        node.nextSibling.querySelector(".watch_comments_comment").addEventListener("click", () => {
-            if (textarea.innerText == "") { return }
-            fetch("/comment", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    text: textarea.innerText,
-                    video: document.getElementById("player_container").dataset.id,
-                    root: node.dataset.root
-                }),
-            })
-                .then(res => res.json())
-                .then(({ length, comment }) => {
-                    document.querySelector(".watch_comments_meta").innerText = `${length} comments`;
-                    console.log(comment);
-                    makeNewComment(comment);
 
-                })
-
-            textarea.innerText = "";
-        });
-    }
-});
-
-
-document.querySelector(".watch_comments_contents").childNodes.forEach(node => handleLoadComment(node));
+        if (more) {
+            console.log(more);
+        } else {
+            console.log(more);
+        }
+    }).catch(err => { console.log(err) });

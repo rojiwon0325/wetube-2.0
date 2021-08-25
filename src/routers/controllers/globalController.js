@@ -2,6 +2,7 @@ import { google } from "googleapis";
 import Video from "../../models/Video";
 import User from "../../models/User";
 import Comment from "../../models/Comment";
+import { async } from "regenerator-runtime";
 
 
 export const home = async (req, res) => {
@@ -78,15 +79,7 @@ export const watch = async (req, res) => {
     const reg = /([0-9a-f]{24})/g;
     const id = req.query.v.match(reg);
     if (req.query.v == id) {
-        const user = await User.findById(id).populate({
-            path: "videos",
-            model: "Video",
-            populate: {
-                path: "creator",
-                model: "User"
-            }
-        });
-        const video = await Video.findById(id).populate("meta.creator").populate({ path: "meta.comments", mode: Comment, populate: "creator" });
+        const video = await Video.findById(id).populate({ path: "meta.creator", model: "User" }).populate({ path: "meta.comments", model: "Comment", populate: "creator" });
         if (video) {
             const now = new Date();
             return res.render("watch", { pageTitle: video ? `${video.title} |` : "", video, now, comments: video.meta.comments });
@@ -112,29 +105,50 @@ export const view = async (req, res) => {
 };
 
 export const comment = async (req, res) => {
-    const { text, video, root } = req.body;
-    const newcmt = await Comment.create({
+    const { text, root, rootModel } = req.body;
+    let v = null;
+    const cmt = await Comment.create({
         text,
-        video,
         creator: req.session.user._id,
         root,
+        rootModel,
         createdAt: Date.now()
     });
-    const v = await Video.findById(video);
-    v.meta.comments.push(newcmt);
-    v.save();
-    return res.send({
-        length: v.meta.comments.length,
-        comment: {
-            _id: newcmt._id,
-            text: text,
-            createdAt: newcmt.createdAt,
-            root,
-            creator: {
-                _id: req.session.user._id,
-                name: req.session.user.name,
-                avatar: req.session.user.avatar
-            }
-        }
-    });
+    const user = await User.findById(req.session.user._id);
+    if (rootModel == "Video") {
+        v = await Video.findById(root);
+        v.meta.comments.push({ $each: [cmt], $position: 0 });
+        await v.save();
+        v = await Video.findById(root).populate({ path: "meta.comments", model: "Comment", populate: "creator" });
+        return res.send({ length: v.meta.comments.length, comment: cmt, creator: { _id: req.session.user._id, avatar: req.session.user.avatar, name: req.session.user.name } });
+
+    } else if (rootModel == "Comment") {
+        v = await Comment.findById(root);
+        v.replies.push({ $each: [cmt], $position: 0 });
+        await v.save();
+
+        return res.send({ comment: cmt, creator: { _id: req.session.user._id, avatar: req.session.user.avatar, name: req.session.user.name } });
+
+    } else {
+        return res.send({ error: "error" });
+    }
 }
+
+export const getComment = async (req, res) => {
+    const { v, root, date } = req.query;
+    if (root == "Video") {
+        const video = await Video.findById(v).populate({ path: "meta.comments", model: "Comment", populate: "creator" });
+        const idx = video.meta.comments.findIndex(c => c.createdAt < date);
+        const comments = video.meta.comments.slice(idx, idx + 3);
+        const more = Boolean(video.meta.comments[idx + 3]);
+
+        return res.send({ length: video.meta.comments.length, comments, more });
+
+    } else if (root == "Comment") {
+        const comment = await Comment.findById(v).populate({ path: "replies", model: "Comment", populate: "creator" });
+        const idx = comment.replies.findIndex(c => c.createdAt < date);
+        const comments = comment.replies.slice(idx, idx + 3);
+        const more = Boolean(comment.replies[idx + 3]);
+        return res.send({ comments, more });
+    }
+};

@@ -188,197 +188,239 @@
                         }
                     }
                 }
-                .watch_comments_container{
-                    .watch_comments_header{
+                .watch_comments_header{
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 24px;
+                    margin-bottom: 32px;
+                    .watch_comments_meta{
                         display: flex;
-                        flex-direction: column;
-                        margin-top: 24px;
-                        margin-bottom: 32px;
-                        .watch_comments_meta{
+                        flex-direction: row;
+                        align-items: center;
+                        margin-bottom: 24px;
+
+                        font-size: 1.5em;
+                    }
+                }
+                .watch_comments_input{
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    align-items: flex-start;
+                    flex: 1;
+                    min-width: 0;
+                    .watch_comments_input_avatar{
+                        width: 40px;
+                        height: 40px;
+                        margin-right: 16px;
+                        flex: none;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        opacity: 1;
+                        transition: none;
+                        img{
+                            display: block;
+                            margin: auto;
+                            max-width: 100%;
+                            max-height: none;
+                            border-radius: none;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .watch_comments_input_inner{
+                        flex: 1;
+                        min-width: 0;
+                        .watch_comments_input_creation-box{
+                            padding-bottom: 8px;
+                            display: flex;
+                            align-items: center;
+                            position: relative;
+                            flex: 1;
+                            max-width: 100%;
+                            .watch_comments_textarea{
+                                flex: 1;
+                                min-height: 20px;
+                                max-width: 100%;
+
+                                font-size: 1.4rem;
+                                font-weight: 400;
+                                line-height: 2.1rem;
+                                letter-spacing: normal;
+                    
+                                padding-bottom: 0.25em;
+                                overflow-wrap: break-word;
+                                border-bottom: 1px solid rgb(113,113,113);
+                    
+                                transition: border 0.5s ease-in;
+                                        
+                                &:empty::before{
+                                    content: attr(aria-label);
+                                    color: rgb(113,113,113);
+                                }
+                            }
+                            .focused_underline{
+                                width: 100%;
+                                opacity: 0;
+                                position: absolute;
+                                bottom: 8px;
+                                border-bottom: 2px solid white;
+                                transition: transform 0.3s;
+                                transform-origin: center center;
+                                transform: scale3d(0,1,1);
+                            }
+                            &:focus-within .focused_underline{
+                                transform: none;
+                            }
+                                    
+                        }
+                        .watch_comments_input_btns{
                             display: flex;
                             flex-direction: row;
                             align-items: center;
-                            margin-bottom: 24px;
-
-                            // 임시
-                            font-size: 1.5em;
+                            justify-content: flex-end;
+                            .watch_btn{
+                                user-select: none;
+                            }
                         }
-                        .watch_comments_input{
+                        
+                    }
+                }
+                .watch_comments_contents{
+                    .watch_comments_thread{
+                        display: block;
+                        margin-bottom: 16px;
+                        position: relative;
+                        .watch_comments_thread_inner{
+                            position: relative;
                             display: flex;
                             flex-direction: row;
-                            flex-wrap: wrap;
-                            align-items: flex-start;
-                            flex: 1;
-                            min-width: 0;
-                            .watch_comments_input_avatar{
+                            .watch_comments_thread_avatar{
+                                flex: none;
+                                display: inline-block;
+                                cursor: pointer;
+                                text-decoration: none;
                                 width: 40px;
                                 height: 40px;
-                                margin-right: 16px;
-                                flex: none;
                                 border-radius: 50%;
                                 overflow: hidden;
-                                opacity: 1;
-                                transition: none;
+                                margin-right: 16px;
                                 img{
-                                    display: block;
-                                    margin: auto;
+                                    width: 100%;
                                     max-width: 100%;
-                                    max-height: none;
-                                    border-radius: none;
-                                    width: 40px;
-                                    height: 40px;
+                                    height: 100%;
                                 }
                             }
-                            .watch_comments_input_inner{
-                                flex: 1;
+                            .watch_comments_main{
                                 min-width: 0;
-                                .watch_comments_input_creation-box{
-                                    padding-bottom: 8px;
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                .watch_comments_main_header{
+                                    margin-bottom: 2px;
                                     display: flex;
-                                    align-items: center;
-                                    position: relative;
-                                    flex: 1;
-                                    max-width: 100%;
-                                    .watch_comments_textarea{
-                                        flex: 1;
-                                        min-height: 20px;
+                                    .watch_comments_badge{
+                                        display: block;
+                                        height: 20px;
+                                        min-width: 0;
                                         max-width: 100%;
-
-                                        font-size: 1.4rem;
-                                        font-weight: 400;
-                                        line-height: 2.1rem;
-                                        letter-spacing: normal;
-                    
-                                        padding-bottom: 0.25em;
-                                        overflow-wrap: break-word;
-                                        border-bottom: 1px solid rgb(113,113,113);
-                    
-                                        transition: border 0.5s ease-in;
-                                        
-                                        &:empty::before{
-                                            content: attr(aria-label);
-                                            color: rgb(113,113,113);
-                                        }
-                                    }
-                                    .focused_underline{
-                                        width: 100%;
-                                        opacity: 0;
-                                        position: absolute;
-                                        bottom: 8px;
-                                        border-bottom: 2px solid white;
-                                        transition: transform 0.3s;
-                                        transform-origin: center center;
-                                        transform: scale3d(0,1,1);
-                                    }
-                                    &:focus-within .focused_underline{
-                                        transform: none;
-                                    }
-                                    
-                                }
-                                .watch_comments_input_btns{
-                                    display: flex;
-                                    flex-direction: row;
-                                    align-items: center;
-                                    justify-content: flex-end;
-                                    .watch_btn{
+                                        margin-right: 4px;
+                                        margin-bottom: 2px;
+                                        padding: 0 6px;
+                                        border-radius: 12px;
+                                        background-color: rgb(136, 136, 136);
+                                        color: white;
+                                        line-clamp: 1;
+                                        font-size: 1.3rem;
+                                        font-weight: 500;
+                                        line-height: 2rem;
+                                        text-overflow: ellipsis;
+                                        cursor: pointer;
                                         user-select: none;
                                     }
                                 }
-                            }
-                        }
-                    }
-                    .watch_comments_contents{
-                        .watch_comments_thread{
-                            display: block;
-                            margin-bottom: 16px;
-                            position: relative;
-                            .watch_comments_thread_inner{
-                                position: relative;
-                                display: flex;
-                                flex-direction: row;
-                                .watch_comments_thread_avatar{
-                                    flex: none;
-                                    display: inline-block;
-                                    cursor: pointer;
-                                    text-decoration: none;
-                                    width: 40px;
-                                    height: 40px;
-                                    border-radius: 50%;
+                                .watch_comments_main_text{
                                     overflow: hidden;
-                                    margin-right: 16px;
-                                    img{
-                                        width: 100%;
-                                        max-width: 100%;
-                                        height: 100%;
+                                    word-wrap: break-word;
+                                    text-overflow: ellipsis;
+                                    -webkit-line-clamp: 4;
+                                    -webkit-box-orient: vertical;
+                                    display: -webkit-box;
+                                    display: block;
+                                    .watch_comments_main_text_content{
+                                        font-size: 1.4rem;
+                                        font-weight: 400;
+                                        line-height: 2rem;
+                                        letter-spacing: normal;
+                                        color: white;
+
+                                        white-space: pre-wrap;
+                                        overflow-wrap: break-word;
                                     }
                                 }
-                                .watch_comments_main{
-                                    min-width: 0;
-                                    flex: 1;
+                                .watch_comments_main_text_btns{
+                                    padding-top: 4px;
+                                    display: none;
+                                    .watch_comments_main_text_btn{
+                                        text-transform: uppercase;
+                                        font-size: 1.4rem;
+                                        font-weight: 500;
+                                        line-height: 1.6rem;
+                                        letter-spacing: normal;
+                                        color: rgb(170,170,170);
+                                    }
+                                }
+                                .watch_comments_main_btns{
+                                    margin-top: 4px;
                                     display: flex;
-                                    flex-direction: column;
-                                    .watch_comments_main_header{
-                                        margin-bottom: 2px;
-                                        display: flex;
-                                        .watch_comments_badge{
-                                            display: block;
-                                            height: 20px;
-                                            min-width: 0;
-                                            max-width: 100%;
-                                            margin-right: 4px;
-                                            margin-bottom: 2px;
-                                            padding: 0 6px;
-                                            border-radius: 12px;
-                                            background-color: rgb(136, 136, 136);
-                                            color: white;
-                                            line-clamp: 1;
-                                            font-size: 1.3rem;
-                                            font-weight: 500;
-                                            line-height: 2rem;
-                                            text-overflow: ellipsis;
-                                            cursor: pointer;
-                                            user-select: none;
-                                        }
-                                    }
-                                    .watch_comments_main_text{
-                                            overflow: hidden;
-                                            word-wrap: break-word;
-                                            text-overflow: ellipsis;
-                                            -webkit-line-clamp: 4;
-                                            -webkit-box-orient: vertical;
-                                            display: -webkit-box;
-                                            display: block;
-                                        .watch_comments_main_text_content{
-                                            font-size: 1.4rem;
-                                            font-weight: 400;
-                                            line-height: 2rem;
-                                            letter-spacing: normal;
-                                            color: white;
-
-                                            white-space: pre-wrap;
-                                            overflow-wrap: break-word;
-                                        }
-                                        
-                                    }
-                                    .watch_comments_main_text_btns{
-                                        padding-top: 4px;
-                                        display: none;
-                                        .watch_comments_main_text_btn{
-                                            text-transform: uppercase;
-                                            font-size: 1.4rem;
-                                            font-weight: 500;
-                                            line-height: 1.6rem;
-                                            letter-spacing: normal;
-                                            color: rgb(170,170,170);
-                                        }
+                                    align-items: center;
+                                    justify-content: flex-start;
+                                    font-size: 1.3rem;
+                                    .watch_comments_main_btn{
+                                        color: rgb(170,170,170);
+                                        font-size: 1.3rem;
+                                        font-weight: 500;
+                                        letter-spacing: 0.007px;
+                                        text-transform: uppercase;
+                                        padding: 8px 16px;
                                     }
                                 }
-                                .watch_comments_thread_edit_dialog{
-
+                                .watch_comments_input{
+                                    display: none;
                                 }
                             }
+                            .watch_comments_input_avatar{
+                                width: 24px;
+                                height: 24px;
+                            } 
+                        }
+                        .watch_comments_replies{
+                            user-select: none;
+                            padding-left: 56px;
+                            summary{
+                                cursor: pointer;
+                                color: rgb(62,166,255);
+
+                                font-size: 1.4rem;
+                                font-weight: 500;
+                                font-stretch: 100%;
+                                letter-spacing: normal;
+                                line-height: 2rem;
+                                padding: 2px 0 10px 0;
+                                
+                                display: none;
+                            }
+                            .watch_comments_thread_avatar{
+                                width: 24px;
+                                height: 24px;
+                            }
+
                         }
                     }
+                }
+                .watch_comments_footer{
+                    height: 50px;
+                    background-color: blue;
                 }
             }
         }
