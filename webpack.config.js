@@ -11,8 +11,6 @@ const config = {
         watch: "./src/front/scripts/watch.js",
         videoPlayer: "./src/front/scripts/videoPlayer.js",
     },
-    mode: "development",
-    watch: true,
     plugins: [new MiniCssExtractPlugin({ filename: "css/styles.css" })],
     module: {
         rules: [{

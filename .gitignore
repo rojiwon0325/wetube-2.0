@@ -118,6 +118,10 @@ dist
 
 package-lock.json
 .env
+.DS_Store
 .eslintrc.js
 uploads
 static
+
+
+build

@@ -13,8 +13,12 @@
   },
   "homepage": "https://github.com/rojiwon0325/wetube-2.0#readme",
   "scripts": {
-    "sr": "nodemon",
-    "wp": "webpack --config webpack.config.js"
+    "start": "node build/index.js",
+    "build": "npm run build:sr && npm run build:wp",
+    "build:sr": "babel src -d build",
+    "build:wp": "webpack --mode=production",
+    "dev:sr": "nodemon",
+    "dev:wp": "webpack --mode=development --w"
   },
   "dependencies": {
     "@ffmpeg/core": "^0.10.0",
@@ -34,6 +38,7 @@
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
     "@babel/node": "^7.14.9",
     "@babel/preset-env": "^7.15.0",
@@ -45,7 +50,7 @@
     "eslint-plugin-prettier": "^3.4.1",
     "mini-css-extract-plugin": "^2.2.0",
     "nodemon": "^2.0.12",
-    "sass": "^1.38.0",
+    "sass": "^1.38.2",
     "sass-loader": "^12.1.0",
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0"
