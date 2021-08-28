@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/rojiwon0325/wetube-2.0#readme",
   "scripts": {
-    "start": "node build/index.js",
+    "start": "index.html",
     "build": "npm run build:sr && npm run build:wp",
     "build:sr": "babel src -d build",
     "build:wp": "webpack --mode=production",
