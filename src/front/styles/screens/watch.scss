@@ -338,6 +338,24 @@
                                         cursor: pointer;
                                         user-select: none;
                                     }
+                                    .watch_comments_createdAt{
+                                        display: flex;
+                                        align-items: center;
+                                        height: 20px;
+                                        
+                                        min-width: 0;
+                                        max-width: 100%;
+                                        margin-right: 4px;
+                                        margin-bottom: 2px;
+                                        padding: 0 6px;
+
+                                        color: rgb(170,170,170);
+                                        font-size: 1.2rem;
+                                        font-weight: 500;
+                                        text-overflow: ellipsis;
+                                        cursor: default;
+                                        user-select: none;
+                                    }
                                 }
                                 .watch_comments_main_text{
                                     overflow: hidden;
@@ -383,6 +401,7 @@
                                         letter-spacing: 0.007px;
                                         text-transform: uppercase;
                                         padding: 8px 16px;
+                                        user-select: none;
                                     }
                                 }
                                 .watch_comments_input{
@@ -410,17 +429,44 @@
                                 
                                 display: none;
                             }
+                            .watch_comments_thread{
+                                margin-bottom: 8px;
+                            }
                             .watch_comments_thread_avatar{
                                 width: 24px;
                                 height: 24px;
                             }
+                            .watch_comments_more{
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                color: rgb(62,166,255);
 
+                                width: 100px;
+                                padding: 5px;
+                                margin: 0;
+                                border: none;
+                                font-size: 1.4rem;
+                            }
                         }
                     }
-                }
-                .watch_comments_footer{
-                    height: 50px;
-                    background-color: blue;
+                    .watch_comments_more{
+                        width: 100%;
+                        padding: 10px;
+                        margin-bottom: 16px;
+                        border: 3px double rgb(62,166,255);
+                        border-radius: 10px;
+                        font-size: 1.7rem;
+                        font-weight: 500;
+                        font-stretch: 100%;
+                        letter-spacing: normal;
+
+                        text-transform: uppercase;
+                        user-select: none;
+                        &:active{
+                            border-style: solid;
+                        }
+                    }
                 }
             }
         }
@@ -460,6 +506,8 @@
 
         min-width: 5.14em;
         padding: 0.7em 0.57em;
+
+        user-select: none;
         
     }
 }

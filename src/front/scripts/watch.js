@@ -1,4 +1,4 @@
-import { handleComment, makeNewComment, stylingComment } from "./comments";
+import { getFetch, handleComment } from "./comments";
 
 const watch_primary_inner = document.querySelector(".watch_primary_inner");
 const watch_secondary_inner = document.querySelector(".watch_secondary_inner");
@@ -50,31 +50,12 @@ if (watch_primary_inner) {
 //comment
 
 if (watch_main_comment) {
-    handleComment(watch_main_comment);
-    watch_main_comment.querySelector(".focused_underline").style.opacity = 0;
-    watch_main_comment.addEventListener("click", () => {
-        if (document.getElementById("header_login_input")) {
-            document.getElementById("header_login_input").click();
-        } else {
-            watch_main_comment.querySelector(".focused_underline").style.opacity = 1;
-        }
-    });
+
+    if (document.getElementById("header_login_input")) {
+        watch_main_comment.addEventListener("click", () => { document.getElementById("header_login_input").click(); });
+    } else {
+        handleComment(watch_main_comment);
+    }
 }
 
-fetch(`/comment?v=${document.getElementById("player_container").dataset.id}&date=${Date.now()}&root=Video`)
-    .then(res => res.json())
-    .then(({ length, comments, more }) => {
-        document.querySelector(".watch_comments_meta").innerText = `${length} comments`;
-
-        comments.forEach(cmt => {
-            const node = makeNewComment(cmt);
-            document.querySelector(".watch_comments_contents").appendChild(node);
-            stylingComment(node);
-        });
-
-        if (more) {
-            console.log(more);
-        } else {
-            console.log(more);
-        }
-    }).catch(err => { console.log(err) });
+getFetch(document.getElementById("player_container").dataset.id, "Video", -1, document.querySelector(".watch_comments_contents"));

@@ -2,7 +2,6 @@ import { google } from "googleapis";
 import Video from "../../models/Video";
 import User from "../../models/User";
 import Comment from "../../models/Comment";
-import { async } from "regenerator-runtime";
 
 
 export const home = async (req, res) => {
@@ -114,17 +113,17 @@ export const comment = async (req, res) => {
         rootModel,
         createdAt: Date.now()
     });
-    const user = await User.findById(req.session.user._id);
+
     if (rootModel == "Video") {
         v = await Video.findById(root);
-        v.meta.comments.push({ $each: [cmt], $position: 0 });
+        v.meta.comments.push(cmt);
         await v.save();
         v = await Video.findById(root).populate({ path: "meta.comments", model: "Comment", populate: "creator" });
         return res.send({ length: v.meta.comments.length, comment: cmt, creator: { _id: req.session.user._id, avatar: req.session.user.avatar, name: req.session.user.name } });
 
     } else if (rootModel == "Comment") {
         v = await Comment.findById(root);
-        v.replies.push({ $each: [cmt], $position: 0 });
+        v.replies.push(cmt);
         await v.save();
 
         return res.send({ comment: cmt, creator: { _id: req.session.user._id, avatar: req.session.user.avatar, name: req.session.user.name } });
@@ -135,20 +134,40 @@ export const comment = async (req, res) => {
 }
 
 export const getComment = async (req, res) => {
-    const { v, root, date } = req.query;
+    const { v, root, end } = req.query;
+
+    let begin = -1;
+    let comments = null;
+
     if (root == "Video") {
         const video = await Video.findById(v).populate({ path: "meta.comments", model: "Comment", populate: "creator" });
-        const idx = video.meta.comments.findIndex(c => c.createdAt < date);
-        const comments = video.meta.comments.slice(idx, idx + 3);
-        const more = Boolean(video.meta.comments[idx + 3]);
 
-        return res.send({ length: video.meta.comments.length, comments, more });
+        if (end == -1) {
+            begin = video.meta.comments.length - 30 > 0 ? video.meta.comments.length - 30 : 0;
+            comments = video.meta.comments.slice(begin).reverse();
+        } else if (end > 0) {
+            begin = end > 30 ? end - 30 : 0;
+            comments = video.meta.comments.slice(begin, end).reverse();
+        } else {
+            return res.send({ length: video.meta.comments.length, comments: [], begin });
+        }
+
+        return res.send({ length: video.meta.comments.length, comments, begin });
 
     } else if (root == "Comment") {
         const comment = await Comment.findById(v).populate({ path: "replies", model: "Comment", populate: "creator" });
-        const idx = comment.replies.findIndex(c => c.createdAt < date);
-        const comments = comment.replies.slice(idx, idx + 3);
-        const more = Boolean(comment.replies[idx + 3]);
-        return res.send({ comments, more });
+
+        if (end == -1) {
+            begin = comment.replies.length - 10 > 0 ? comment.replies.length - 10 : 0;
+            comments = comment.replies.slice(begin).reverse();
+        } else if (end > 0) {
+            begin = end > 10 ? end - 10 : 0;
+            comments = comment.replies.slice(begin, end).reverse();
+        } else {
+            return res.send({ comments: [], begin });
+        }
+
+        return res.send({ comments, begin });
     }
+
 };
