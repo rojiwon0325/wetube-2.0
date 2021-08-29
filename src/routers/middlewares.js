@@ -1,5 +1,8 @@
 import { google } from "googleapis";
 import multer from "multer";
+import multers3 from "multer-s3";
+import aws from "aws-sdk";
+import { matchFromAbsolutePathsAsync } from "tsconfig-paths";
 
 export const localMiddleware = (req, res, next) => {
     const { login, logout } = req.body;
@@ -47,5 +50,24 @@ const multerStorage = multer.diskStorage({
     }
 });
 
-export const multerMW = multer({ storage: multerStorage });
+const s3 = new aws.S3({
+    credentials: {
+        accessKeyId: process.env.AWS_ID,
+        secretAccessKey: process.env.AWS_SECRET
+    }
+});
+const storage = multerS3({
+    s3: s3,
+    bucket: 'wetube-rojiwon',
+    metadata: function (req, file, cb) {
+        cb(null, { fieldName: file.fieldname })
+    },
+    key: function (req, file, cb) {
+        cb(null, `uploads/${Date.now()}_${file.originalname}`)
+    },
+});
+
+export const multerMW = multer({
+    storage: storage
+});
 
