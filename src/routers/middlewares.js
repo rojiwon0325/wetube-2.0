@@ -55,7 +55,7 @@ const storage = multerS3({
     bucket: 'wetube-rojiwon',
     acl: "public-read",
     metadata: function (req, file, cb) {
-        cb(null, { fieldName: file.fieldname })
+        cb(null, { fieldName: file.fieldname, data: file })
     },
     key: function (req, file, cb) {
         cb(null, `${file.fieldename}s/${Date.now()}_${file.originalname}`)
