@@ -13,10 +13,6 @@ header.header
                 button(form="search-form", type="submit", id="search_button").search_button
                     i.fas.fa-search
     .header-column.right
-        .header_item
-            button.header_search
-                i.fas.fa-search
-            //평소엔 안보이다가 화면너비가 작을때 나타남, 클릭시 헤더전체가 검색창으로 덮힘
         if login
             .header_item
                 a(href="/video/upload").header_upload
