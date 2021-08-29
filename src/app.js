@@ -15,8 +15,9 @@ app.use(helmet({
     referrerPolicy: { policy: "strict-origin-when-cross-origin" },
     crossOriginEmbedderPolicy: true,
     crossOriginOpenerPolicy: "same-origin",
-    accessControlAllowOrigin: true
+    crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
+app.use(helmet.cors({}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
