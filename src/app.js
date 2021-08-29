@@ -5,6 +5,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import globalRouter from "./routers/globalRouter";
+import { cors } from "./routers/middlewares";
 
 const app = express();
 app.set("view engine", "pug");
@@ -16,6 +17,7 @@ app.use(helmet({
     crossOriginEmbedderPolicy: true,
     crossOriginOpenerPolicy: "same-origin"
 }));
+app.use(cors);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

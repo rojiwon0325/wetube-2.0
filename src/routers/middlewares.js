@@ -3,6 +3,11 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 
+export const cors = (req, res, next) => {
+    res.headers("Access-Control-Allow-Origin", "*");
+    next();
+};
+
 export const localMiddleware = (req, res, next) => {
     const { login, logout } = req.body;
     if (login) {
