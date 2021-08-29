@@ -13,8 +13,8 @@ export const postUpload = async (req, res) => {
         const { video: file_video, thumbnail: file_thumbnail } = req.files;
         const newvideo = await Video.create({
             title,
-            thumbnail: file_thumbnail[0].path,
-            source: file_video[0].path,
+            thumbnail: file_thumbnail[0].location,
+            source: file_video[0].location,
             meta: {
                 description: description || "",
                 createdAt: Date.now(),

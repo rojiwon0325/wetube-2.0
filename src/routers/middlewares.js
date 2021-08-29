@@ -1,8 +1,7 @@
 import { google } from "googleapis";
 import multer from "multer";
-import multers3 from "multer-s3";
+import multerS3 from "multer-s3";
 import aws from "aws-sdk";
-import { matchFromAbsolutePathsAsync } from "tsconfig-paths";
 
 export const localMiddleware = (req, res, next) => {
     const { login, logout } = req.body;
@@ -44,11 +43,6 @@ export const privateMiddleware = (req, res, next) => {
         res.status(403).redirect(req.headers.referer || "/");
     }
 };
-const multerStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, `uploads/${file.fieldname}s`);
-    }
-});
 
 const s3 = new aws.S3({
     credentials: {
@@ -59,6 +53,7 @@ const s3 = new aws.S3({
 const storage = multerS3({
     s3: s3,
     bucket: 'wetube-rojiwon',
+    acl: "public-read",
     metadata: function (req, file, cb) {
         cb(null, { fieldName: file.fieldname })
     },
@@ -67,7 +62,5 @@ const storage = multerS3({
     },
 });
 
-export const multerMW = multer({
-    storage: storage
-});
+export const multerMW = multer({ storage });
 

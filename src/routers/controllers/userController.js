@@ -34,7 +34,7 @@ export const postEditProfile = async (req, res) => {
     let image = req.session.user.avatar;
     let newname = req.session.user.name;
     if (!check && file) {
-        image = file.path;
+        image = file.location;
     } else if (check) {
         image = req.session.user.google_picture;
     }
