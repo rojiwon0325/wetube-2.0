@@ -50,17 +50,18 @@ const s3 = new aws.S3({
         secretAccessKey: process.env.AWS_SECRET
     }
 });
-const storage = multerS3({
-    s3: s3,
-    bucket: 'wetube-rojiwon',
-    acl: "public-read",
-    metadata: function (req, file, cb) {
-        cb(null, { fieldName: file.fieldname, data: file })
-    },
-    key: function (req, file, cb) {
-        cb(null, `${file.fieldename}s/${Date.now()}_${file.originalname}`)
-    },
+
+export const multerMW = multer({
+    storage: multerS3({
+        s3,
+        bucket: 'wetube-rojiwon',
+        acl: "public-read",
+        metadata: function (req, file, cb) {
+            cb(null, { fieldName: file.fieldname })
+        },
+        key: function (req, file, cb) {
+            const dest = file.fieldname;
+            cb(null, `${dest}s/${Date.now()}_${file.originalname}`)
+        },
+    })
 });
-
-export const multerMW = multer({ storage });
-
