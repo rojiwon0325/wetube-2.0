@@ -58,8 +58,7 @@ const storage = multerS3({
         cb(null, { fieldName: file.fieldname })
     },
     key: function (req, file, cb) {
-        console.log(file);
-        cb(null, `uploads/${Date.now()}_${file.originalname}`)
+        cb(null, `${file.fieldname}s/${Date.now()}_${file.originalname}`)
     },
 });
 
