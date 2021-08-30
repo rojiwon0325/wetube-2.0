@@ -4,7 +4,7 @@ import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 
 export const cors = (req, res, next) => {
-    res.headers("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "*");
     next();
 };
 
