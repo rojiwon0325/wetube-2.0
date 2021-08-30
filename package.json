@@ -18,7 +18,7 @@
     "build:sr": "babel src -d build",
     "build:wp": "webpack --mode=production",
     "dev:sr": "nodemon",
-    "dev:wp": "webpack --mode=development --w"
+    "dev:wp": "webpack --mode=development -w"
   },
   "dependencies": {
     "@ffmpeg/core": "^0.10.0",

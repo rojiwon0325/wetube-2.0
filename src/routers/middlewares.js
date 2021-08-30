@@ -3,17 +3,6 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 
-export const cors = (req, res, next) => {
-    res.set({
-        'Access-Control-Allow-Origin': 'https://wetube-rojiwon.s3.amazonaws.com/',
-        'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Methods': 'GET, POST, DELETE',
-        'Access-Control-Allow-Headers':
-            'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    });
-    next();
-};
-
 export const localMiddleware = (req, res, next) => {
     const { login, logout } = req.body;
     if (login) {
