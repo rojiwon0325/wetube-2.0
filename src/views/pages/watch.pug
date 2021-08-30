@@ -10,7 +10,7 @@ block content
                     .player_container_outer
                         .player_container_inner
                             #player_container(data-id=video._id)
-                                video(src=video.source, playsinline, type="video/*", poster=video.thumbnail)#player_video
+                                video(src=video.source, playsinline, type="video/*", poster=video.thumbnail, crossorigin)#player_video
                                 .player_bottom.opacity
                                     .progress_container
                                         div(tabindex="0").progress_wrap

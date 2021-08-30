@@ -5,7 +5,6 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import globalRouter from "./routers/globalRouter";
-import { cors } from "./routers/middlewares";
 
 const app = express();
 app.set("view engine", "pug");
