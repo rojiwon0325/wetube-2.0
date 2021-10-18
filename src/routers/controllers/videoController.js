@@ -5,7 +5,7 @@ export const videos = async (req, res) => {
     try {
         if (req.session.user) {
             const videos = (await User.findById(req.session.user._id).populate("videos")).videos;
-            return res.render("videos", { videos });
+            return res.render("videos", { pageTitle: "MY VIDEOS |", videos });
         }
         return res.redirect("/");
     } catch {
@@ -41,26 +41,29 @@ export const postUpload = async (req, res) => {
 export const getEditVideo = async (req, res) => {
     const reg = /([0-9a-f]{24})/g;
     const id = req.params.id.match(reg)
-    if (req.params.id == id) {
-        const video = await Video.findById(id);
-        if (video) {
-            if (video.meta.creator == req.session.user._id) {
-                return res.render("editVideo", { pageTitle: "Edit Video |", video });
-            } else {
-                return res.status(403).redirect(`/watch?v=${id}`);
-            }
+    const video = await Video.findById(id).populate({
+        path: "meta.creator",
+        model: "User"
+    });
+    if (video) {
+        if (video.meta.creator._id == req.session.user._id) {
+            return res.render("editVideo", { pageTitle: "Edit Video |", video });
+        } else {
+            return res.status(403).redirect(`/watch?v=${id}`);
         }
-    } else if (id) {
-        return res.redirect(`/video/${id}/edit`)
     }
     return res.status(404).redirect("/");
 };
+
 export const postEditVideo = async (req, res) => {
     const { id } = req.params;
     const { title, description, file } = req.body;
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate({
+        path: "meta.creator",
+        model: "User"
+    });
     if (video) {
-        if (video.meta.creator != req.session.user._id) {
+        if (video.meta.creator._id != req.session.user._id) {
             return res.status(403).redirect(`/watch?v=${id}`);
         }
         if (req.body.delete) {
