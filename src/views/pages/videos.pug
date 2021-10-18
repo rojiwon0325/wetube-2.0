@@ -6,7 +6,7 @@ block content
             each video in videos
                 .videoRenderer_wrap
                     a(href=`/video/${video._id}/edit`)
-                    img(src=video.thumbnail crossorigin)
-                    h2=video.title
+                        img(src=video.thumbnail crossorigin)
+                        h2=video.title
             else
                 div nothing found

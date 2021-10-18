@@ -57,7 +57,7 @@ export const getEditVideo = async (req, res) => {
 };
 export const postEditVideo = async (req, res) => {
     const { id } = req.params;
-    const { title, description } = req.body;
+    const { title, description, file } = req.body;
     const video = await Video.findById(id);
     if (video) {
         if (video.meta.creator != req.session.user._id) {
@@ -65,10 +65,11 @@ export const postEditVideo = async (req, res) => {
         }
         if (req.body.delete) {
             await Video.findByIdAndDelete(id);
+        } else {
+            await Video.findByIdAndUpdate(id, {
+                title, description, ...(file && { thumbnail: file.location })
+            });
         }
-        await Video.findByIdAndUpdate(id, {
-            title, description
-        });
     }
-    return res.status(404).redirect("/video");
+    return res.redirect("/video");
 };

@@ -8,6 +8,6 @@ const videoRouter = express.Router();
 
 videoRouter.get("/", videos); // my video list
 videoRouter.route("/upload").get(getUpload).post(multerMW.fields([{ name: "video" }, { name: "thumbnail" }]), postUpload);
-videoRouter.route("/:id/edit").get(getEditVideo).post(postEditVideo);
+videoRouter.route("/:id/edit").get(getEditVideo).post(multerMW.single("thumbnail"), postEditVideo);
 
 export default videoRouter;
