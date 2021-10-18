@@ -6,7 +6,7 @@ block content
     .postContainer
         .hidden
             form(id="editVideo-form", method="POST", enctype="multipart/form-data")
-            input(form="editVideo-form", type = "file", name = "thumbnail", accept="image/*" )#upload_img_input
+            input(form="editVideo-form", type="file", name="thumbnail", accept="image/*")#upload_img_input
         .form_container
             .loading-screen.hidden
                 .loading-ring
@@ -14,7 +14,7 @@ block content
                 h1.form_title VIDEO EDIT
             .form_content_wrap
                 .form_content_left
-                    input(form="editVideo-form", type = "text", name = "title", placeholder="Title", required, value=video.title).upload_title_input.form_input
+                    input(form="editVideo-form", type="text", name="title", placeholder="Title", required, value=video.title).upload_title_input.form_input
                     textarea(form="editVideo-form", name="description", cols="30", rows="10", placeholder="Description").upload_description_input.form_input=video.description
                 .form_content_right
                     video(src=video.source, controls, preload="metadata", playsinline, crossorigin)#preview_video.upload_preview
@@ -24,8 +24,8 @@ block content
                         label(for="upload_img_input").form_btn Select Image File
                         button#upload_img_cancel.form_btn CANCEL
             .form_footer 
-                input(form="editVideo-form", type = "submit", value="UPDATE").form_submit_input.form_btn
-                input(form="editVideo-form", type = "submit", value="DELETE VIDEO", name="delete").form_submit_input.form_btn
+                input(form="editVideo-form", type="submit", value="UPDATE").form_submit_input.form_btn
+                input(form="editVideo-form", type="submit", value="DELETE VIDEO", name="delete").form_submit_input.form_btn
 
 block scripts
     script(src="/static/js/upload.js")

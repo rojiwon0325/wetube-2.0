@@ -41,10 +41,7 @@ export const postUpload = async (req, res) => {
 export const getEditVideo = async (req, res) => {
     const reg = /([0-9a-f]{24})/g;
     const id = req.params.id.match(reg)
-    const video = await Video.findById(id).populate({
-        path: "meta.creator",
-        model: "User"
-    });
+    const video = await Video.findById(id).populate("meta.creator");
     if (video) {
         if (video.meta.creator._id == req.session.user._id) {
             return res.render("editVideo", { pageTitle: "Edit Video |", video });
@@ -58,10 +55,7 @@ export const getEditVideo = async (req, res) => {
 export const postEditVideo = async (req, res) => {
     const { id } = req.params;
     const { title, description, file } = req.body;
-    const video = await Video.findById(id).populate({
-        path: "meta.creator",
-        model: "User"
-    });
+    const video = await Video.findById(id).populate("meta.creator");
     if (video) {
         if (video.meta.creator._id != req.session.user._id) {
             return res.status(403).redirect(`/watch?v=${id}`);
