@@ -44,7 +44,6 @@ export const getEditVideo = async (req, res) => {
     const video = await Video.findById(id).populate("meta.creator");
     if (video) {
         if (video.meta.creator._id == req.session.user._id) {
-            return res.redirect("/");
             return res.render("editVideo", { pageTitle: "Edit Video |", video });
         } else {
             return res.redirect(`/watch?v=${id}`);
