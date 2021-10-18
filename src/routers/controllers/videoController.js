@@ -2,6 +2,7 @@ import Video from "../../models/Video";
 import User from "../../models/User";
 
 export const videos = (req, res) => {
+    return res.redirect("/");
     try {
         if (req.session.user) {
             const videos = User.findById(req.session.user._id).populate("videos").videos;

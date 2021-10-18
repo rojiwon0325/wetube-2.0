@@ -37,7 +37,7 @@ export const localMiddleware = (req, res, next) => {
 };
 
 export const privateMiddleware = (req, res, next) => {
-    if (res.locals.login) {
+    if (req.session.user) {
         next();
     } else {
         res.status(403).redirect(req.headers.referer || "/");
