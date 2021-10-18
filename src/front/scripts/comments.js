@@ -238,11 +238,14 @@ function makeNewComment(comment) {
                 body: JSON.stringify({
                     id: comment._id
                 }),
-            }).then(res => {
-                const { result } = await res.json();
-                console.log(result);
-                thread.remove();
-            }).catch(console.log);
+            })
+                .then(res => res.json())
+                .then(res => {
+                    const { result } = res;
+                    console.log(result);
+                    thread.remove();
+                })
+                .catch(console.log);
         }
     });
     return thread;
