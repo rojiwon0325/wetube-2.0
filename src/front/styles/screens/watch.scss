@@ -298,18 +298,18 @@
                             .watch_comments_action-menu{
                                 width: 10px;
                                 height: 100%;
-                                padding-left: 10px;
                                 box-sizing: border-box;
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
                                 overflow: hidden;
                                 &:hover{
-                                    width: 40px;
+                                    width: 50px;
                                 }
                                 .watch_comments_action_btn{
                                     width: 30px;
                                     height: 30px;
+                                    margin: 0 10px;
                                     background-color: gray;
                                     color: white;
                                     border-radius: 3px;

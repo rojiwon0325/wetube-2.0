@@ -2,3 +2,4 @@ mixin videoRenderer(video)
     .videoRenderer_wrap
         a(href=`/watch?v=${video._id}`)
             img(src=video.thumbnail crossorigin)
+            h2=video.title

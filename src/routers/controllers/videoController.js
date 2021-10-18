@@ -2,7 +2,14 @@ import Video from "../../models/Video";
 import User from "../../models/User";
 
 export const videos = (req, res) => {
-    res.send("videos");
+    try {
+        if (req.session.user) {
+            const videos = User.findById(req.session.user._id).populate("videos").videos;
+            return res.render("home", { videos });
+        }
+    } catch {
+        return res.redirect("/");
+    }
 };
 export const getUpload = (req, res) => {
     return res.render("upload", { pageTitle: "Upload Video |" });
