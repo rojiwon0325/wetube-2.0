@@ -4,7 +4,7 @@ block content
     .postContainer
         .hidden
             form(id="editVideo-form", method="POST", enctype="multipart/form-data")
-            input(form="editVideo-form", type="file", name="thumbnail", accept="image/*")#upload_img_input
+            input(form="editVideo-form", type="file", name="thumbnail", accept="image/*")#edit_img_input
         .form_container
             .loading-screen.hidden
                 .loading-ring
@@ -17,10 +17,10 @@ block content
                 .form_content_right
                     video(src=video.source, controls, preload="metadata", playsinline, crossorigin)#preview_video.edit_preview
                     .upload_preview
-                        img(src=video.thumbnail)#preview_img.upload_img
+                        img(src=video.thumbnail, data-src=video.thumbnail, style="opacity:1;", crossorigin)#preview_img.upload_img
                     .upload_btns           
-                        label(for="upload_img_input").form_btn Select Image File
-                        button#upload_img_cancel.form_btn CANCEL
+                        label(for="edit_img_input").form_btn Select Image File
+                        button#edit_img_cancel.form_btn CANCEL
             .form_footer 
                 input(form="editVideo-form", type="submit", value="UPDATE").form_submit_input.form_btn
                 input(form="editVideo-form", type="submit", value="DELETE", name="delete").form_submit_input.form_btn

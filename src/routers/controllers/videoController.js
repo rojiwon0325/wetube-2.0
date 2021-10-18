@@ -19,6 +19,9 @@ export const postUpload = async (req, res) => {
     try {
         const { title, description } = req.body;
         const { video: file_video, thumbnail: file_thumbnail } = req.files;
+        if (file_video.length == 0) {
+            return res.redirect("/video/upload");
+        }
         const newvideo = await Video.create({
             title,
             thumbnail: file_thumbnail[0].location,

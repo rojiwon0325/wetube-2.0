@@ -4,6 +4,8 @@ const upload_file_input = document.getElementById("upload_file_input");
 const upload_img_input = document.getElementById("upload_img_input");
 const upload_file_cancel = document.getElementById("upload_file_cancel");
 const upload_img_cancel = document.getElementById("upload_img_cancel");
+const edit_img_input = document.getElementById("edit_img_input");
+const edit_img_cancel = document.getElementById("edit_img_cancel");
 
 upload_file_input.addEventListener("change", () => {
     const preview = document.getElementById("preview_video");
@@ -27,6 +29,28 @@ upload_img_input.addEventListener("input", () => {
         URL.revokeObjectURL(preview.src);
         preview.src = URL.createObjectURL(upload_img_input.files[0]);
     }
+});
+
+edit_img_input.addEventListener("click", () => {
+    const preview = document.getElementById("preview_img");
+    preview.style.opacity = 1;
+
+    if (preview.src == preview.dataset.src) {
+        preview.src = URL.createObjectURL(upload_img_input.files[0]);
+    } else {
+        URL.revokeObjectURL(preview.src);
+        preview.src = URL.createObjectURL(upload_img_input.files[0]);
+    }
+});
+
+edit_img_cancel.addEventListener("click", () => {
+    const preview = document.getElementById("preview_img");
+    edit_img_input.value = null;
+    if (preview.src != preview.dataset.src) {
+        URL.revokeObjectURL(preview.src);
+        preview.src = preview.dataset.src;
+    }
+    upload_img_cancel.blur();
 });
 
 upload_file_cancel.addEventListener("click", () => {
