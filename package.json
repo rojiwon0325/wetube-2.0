@@ -2,6 +2,9 @@
   "name": "wetube",
   "version": "2.0.0",
   "description": "Cloning Youtube with VanilaJS and Node",
+  "engines": {
+    "node": "16.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rojiwon0325/wetube-2.0.git"
