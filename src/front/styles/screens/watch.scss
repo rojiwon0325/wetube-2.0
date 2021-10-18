@@ -295,6 +295,27 @@
                             position: relative;
                             display: flex;
                             flex-direction: row;
+                            .watch_comments_action-menu{
+                                width: 10px;
+                                height: 100%;
+                                padding-left: 10px;
+                                box-sizing: border-box;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                overflow: hidden;
+                                &:hover{
+                                    width: 40px;
+                                }
+                                .watch_comments_action_btn{
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: gray;
+                                    color: white;
+                                    border-radius: 3px;
+                                    font-weight: bold;
+                                }
+                            }
                             .watch_comments_thread_avatar{
                                 flex: none;
                                 display: inline-block;
@@ -412,27 +433,7 @@
                                 width: 24px;
                                 height: 24px;
                             }
-                            .watch_comments_action_menu{
-                                width: 10px;
-                                height: 100%;
-                                padding-left: 10px;
-                                box-sizing: border-box;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                overflow: hidden;
-                                &:hover{
-                                    width: 40px;
-                                }
-                                .watch_comments_action_btn{
-                                    width: 30px;
-                                    height: 30px;
-                                    background-color: gray;
-                                    color: white;
-                                    border-radius: 3px;
-                                    font-weight: bold;
-                                }
-                            }
+                            
                         }
                         .watch_comments_replies{
                             user-select: none;
