@@ -1,11 +1,10 @@
 import Video from "../../models/Video";
 import User from "../../models/User";
 
-export const videos = (req, res) => {
-    return res.redirect("/");
+export const videos = async (req, res) => {
     try {
         if (req.session.user) {
-            const videos = User.findById(req.session.user._id).populate("videos").videos;
+            const videos = (await User.findById(req.session.user._id).populate("videos")).videos;
             return res.render("videos", { videos });
         }
         return res.redirect("/");
@@ -45,7 +44,7 @@ export const getEditVideo = async (req, res) => {
     if (req.params.id == id) {
         const video = await Video.findById(id);
         if (video) {
-            if (video.creator == req.session.user._id) {
+            if (video.meta.creator == req.session.user._id) {
                 return res.render("editVideo", { pageTitle: "Edit Video |", video });
             } else {
                 return res.status(403).redirect(`/watch?v=${id}`);
@@ -61,7 +60,7 @@ export const postEditVideo = async (req, res) => {
     const { title, description } = req.body;
     const video = await Video.findById(id);
     if (video) {
-        if (video.creator != req.session.user._id) {
+        if (video.meta.creator != req.session.user._id) {
             return res.status(403).redirect(`/watch?v=${id}`);
         }
         if (req.body.delete) {
