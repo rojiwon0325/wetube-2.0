@@ -63,8 +63,16 @@ export const postEditVideo = async (req, res) => {
         if (req.body.delete) {
             await Video.findByIdAndDelete(id);
         } else {
-            await Video.findByIdAndUpdate(id, {
-                title, meta: { description }, ...(file && { thumbnail: file.location })
+            await Video.findById(id, (err, video) => {
+                if (err) {
+                    return
+                }
+                video.meta.description = description;
+                video.title = title;
+                if (file) {
+                    video.thumbnail = file.location;
+                }
+                video.save();
             });
         }
     }
