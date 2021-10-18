@@ -6,9 +6,10 @@ import Comment from "../../models/Comment";
 export const deleteComment = async (req, res) => {
     const { id } = req.body;
     const cmt = await Comment.findById(id).populate("creator");
-    if (cmt && (req.session.user?._id === cmt.creator._id)) {
+    console.log(id, "I'm deleting...");
+    if (cmt && (req.session.user?._id == cmt.creator._id)) {
         await Promise.all([Comment.deleteMany({ root: id }), Comment.findByIdAndDelete(id)]);
-        return;
+        return { result: "Success" };
     }
     throw new Error("fail to delete comment");
 };

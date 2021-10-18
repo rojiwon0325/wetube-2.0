@@ -230,7 +230,7 @@ function makeNewComment(comment) {
     });
     thread.querySelector(".btn_delete").addEventListener("click", (e) => {
         if (document.getElementById("header_login_input")) {
-            document.getElementById("header_login_input").click();
+            return
         } else {
             fetch("/deleteComment", {
                 method: "POST",
@@ -238,7 +238,9 @@ function makeNewComment(comment) {
                 body: JSON.stringify({
                     id: comment._id
                 }),
-            }).then(() => {
+            }).then(res => {
+                const { result } = await res.json();
+                console.log(result);
                 thread.remove();
             }).catch(console.log);
         }
