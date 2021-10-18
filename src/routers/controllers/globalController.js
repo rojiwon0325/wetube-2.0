@@ -3,6 +3,15 @@ import Video from "../../models/Video";
 import User from "../../models/User";
 import Comment from "../../models/Comment";
 
+export const deleteComment = async (req, res) => {
+    const { id } = req.body;
+    const cmt = await Comment.findById(id).populate("creator");
+    if (cmt && (req.session.user?._id === cmt.creator._id)) {
+        await Promise.all([Comment.deleteMany({ root: id }), Comment.findByIdAndDelete(id)]);
+        return;
+    }
+    throw new Error("fail to delete comment");
+};
 
 export const home = async (req, res) => {
     try {
@@ -70,7 +79,7 @@ export const results = async (req, res) => {
         }).sort({ createdAt: "desc" }).populate("creator");
     }
     res.locals.search_query = search_query;
-    return res.render("search", { pageTitle: `${search_query} |`, videos });
+    return res.render("home", { pageTitle: `${search_query} |`, videos });
 }
 
 

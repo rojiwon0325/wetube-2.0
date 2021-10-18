@@ -181,7 +181,9 @@ function makeNewComment(comment) {
                     <button class="watch_comments_main_btn btn_reply">reply</button>
                 </div>
             </div>
-            <div class="watch_comments_action-menu"></div>
+            <div class="watch_comments_action-menu">
+                    <button class="watch_comments_action_btn btn_delete">DEL</button>
+            </div>
         </div>`;
     if (comment.rootModel == "Video") {
         const details = document.createElement("details");
@@ -224,6 +226,21 @@ function makeNewComment(comment) {
                 input.style.display = "flex";
                 input.querySelector(".watch_comments_textarea").focus();
             }
+        }
+    });
+    thread.querySelector(".btn_delete").addEventListener("click", (e) => {
+        if (document.getElementById("header_login_input")) {
+            document.getElementById("header_login_input").click();
+        } else {
+            fetch("/deleteComment", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: comment._id
+                }),
+            }).then(() => {
+                thread.remove();
+            }).catch(console.log);
         }
     });
     return thread;
