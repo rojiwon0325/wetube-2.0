@@ -7,7 +7,7 @@ const upload_img_cancel = document.getElementById("upload_img_cancel");
 const edit_img_input = document.getElementById("edit_img_input");
 const edit_img_cancel = document.getElementById("edit_img_cancel");
 
-upload_file_input.addEventListener("change", () => {
+upload_file_input?.addEventListener("change", () => {
     const preview = document.getElementById("preview_video");
     preview.setAttribute("controls", true);
 
@@ -19,7 +19,7 @@ upload_file_input.addEventListener("change", () => {
     }
 });
 
-upload_img_input.addEventListener("input", () => {
+upload_img_input?.addEventListener("input", () => {
     const preview = document.getElementById("preview_img");
     preview.style.opacity = 1;
 
@@ -31,18 +31,15 @@ upload_img_input.addEventListener("input", () => {
     }
 });
 
-edit_img_input.addEventListener("input", () => {
+edit_img_input?.addEventListener("input", () => {
     const preview = document.getElementById("preview_img");
-
-    if (preview.src == preview.dataset.src) {
-        preview.src = URL.createObjectURL(edit_img_input.files[0]);
-    } else {
+    if (preview.src != preview.dataset.src) {
         URL.revokeObjectURL(preview.src);
-        preview.src = URL.createObjectURL(edit_img_input.files[0]);
     }
+    preview.src = URL.createObjectURL(edit_img_input.files[0]);
 });
 
-edit_img_cancel.addEventListener("click", () => {
+edit_img_cancel?.addEventListener("click", () => {
     const preview = document.getElementById("preview_img");
     edit_img_input.value = null;
     if (preview.src != preview.dataset.src) {
@@ -52,7 +49,7 @@ edit_img_cancel.addEventListener("click", () => {
     edit_img_cancel.blur();
 });
 
-upload_file_cancel.addEventListener("click", () => {
+upload_file_cancel?.addEventListener("click", () => {
     const preview = document.getElementById("preview_video");
     upload_file_input.value = null;
     preview.removeAttribute("controls");
@@ -61,7 +58,7 @@ upload_file_cancel.addEventListener("click", () => {
     }
     upload_file_cancel.blur();
 });
-upload_img_cancel.addEventListener("click", () => {
+upload_img_cancel?.addEventListener("click", () => {
     const preview = document.getElementById("preview_img");
     upload_img_input.value = null;
     preview.style.opacity = 0;
@@ -71,11 +68,11 @@ upload_img_cancel.addEventListener("click", () => {
     upload_img_cancel.blur();
 });
 
-upload_file_input.oninvalid = (e) => {
+upload_file_input?.oninvalid = (e) => {
     alert("Please Select a Video.");
 };
 
-document.getElementById("upload-form").addEventListener("submit", (e) => {
+document.getElementById("upload-form")?.addEventListener("submit", (e) => {
     document.querySelector(".loading-screen").classList.remove("hidden");
     if (upload_img_input.files[0] == null) {
         e.preventDefault();
