@@ -13,9 +13,9 @@ block content
             .form_content_wrap
                 .form_content_left
                     input(form="editVideo-form", type="text", name="title", placeholder="Title", required, value=video.title).upload_title_input.form_input
-                    textarea(form="editVideo-form", name="description", cols="30", rows="10", placeholder="Description").upload_description_input.form_input=video.description
+                    textarea(form="editVideo-form", name="description", cols="30", rows="10", placeholder="Description").upload_description_input.form_input=video.meta.description
                 .form_content_right
-                    video(src=video.source, controls, preload="metadata", playsinline, crossorigin)#preview_video.upload_preview
+                    video(src=video.source, controls, preload="metadata", playsinline, crossorigin)#preview_video.edit_preview
                     .upload_preview
                         img(src=video.thumbnail)#preview_img.upload_img
                     .upload_btns           

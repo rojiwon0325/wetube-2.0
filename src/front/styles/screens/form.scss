@@ -109,7 +109,12 @@
                 border-left: solid black 1px; 
                 overflow: scroll;
             }
-            
+            .edit_preview{
+                width: 300px;
+                min-height: 150px;
+                background-color: black;
+                margin-bottom: 20px;
+            }
             .upload_preview{
                 width: 300px;
                 min-height: 150px;
@@ -135,7 +140,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             .form_submit_input{
                 padding: 10px 35px;
                 background-color: red;
