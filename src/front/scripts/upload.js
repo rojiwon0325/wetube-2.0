@@ -88,35 +88,35 @@ if (document.getElementById("upload-form")) {
             makeThumbnail();
         }
     });
+
+    const makeThumbnail = async () => {
+        const ffmpeg = createFFmpeg({ log: true, corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js" });
+        await ffmpeg.load();
+        const URL_FILE = document.getElementById("preview_video").src;
+        ffmpeg.FS("writeFile", upload_file_input.files[0].name, await fetchFile(URL_FILE));
+        await ffmpeg.run(
+            "-i",
+            upload_file_input.files[0].name,
+            "-ss",
+            "00:00:02",
+            "-frames:v",
+            "1",
+            `${upload_file_input.files[0].name}_thumb.jpg`
+        );
+
+        const thumb = new Blob([ffmpeg.FS("readFile", `${upload_file_input.files[0].name}_thumb.jpg`).buffer], { type: "image/jpg" });
+        const fd = new FormData();
+        fd.append("video", upload_file_input.files[0]);
+        fd.append("title", document.querySelector(".upload_title_input").value);
+        fd.append("description", document.querySelector(".upload_description_input").value);
+        fd.append("thumbnail", thumb);
+        fetch("/video/upload", { method: "POST", body: fd })
+            .then(res => {
+                ffmpeg.FS("unlink", upload_file_input.files[0].name);
+                ffmpeg.FS("unlink", `${upload_file_input.files[0].name}_thumb.jpg`);
+
+                URL.revokeObjectURL(URL_FILE);
+                window.location = res.url;
+            });
+    };
 }
-
-const makeThumbnail = async () => {
-    const ffmpeg = createFFmpeg({ log: true, corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js" });
-    await ffmpeg.load();
-    const URL_FILE = document.getElementById("preview_video").src;
-    ffmpeg.FS("writeFile", upload_file_input.files[0].name, await fetchFile(URL_FILE));
-    await ffmpeg.run(
-        "-i",
-        upload_file_input.files[0].name,
-        "-ss",
-        "00:00:02",
-        "-frames:v",
-        "1",
-        `${upload_file_input.files[0].name}_thumb.jpg`
-    );
-
-    const thumb = new Blob([ffmpeg.FS("readFile", `${upload_file_input.files[0].name}_thumb.jpg`).buffer], { type: "image/jpg" });
-    const fd = new FormData();
-    fd.append("video", upload_file_input.files[0]);
-    fd.append("title", document.querySelector(".upload_title_input").value);
-    fd.append("description", document.querySelector(".upload_description_input").value);
-    fd.append("thumbnail", thumb);
-    fetch("/video/upload", { method: "POST", body: fd })
-        .then(res => {
-            ffmpeg.FS("unlink", upload_file_input.files[0].name);
-            ffmpeg.FS("unlink", `${upload_file_input.files[0].name}_thumb.jpg`);
-
-            URL.revokeObjectURL(URL_FILE);
-            window.location = res.url;
-        });
-};
