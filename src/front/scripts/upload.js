@@ -31,7 +31,7 @@ upload_img_input.addEventListener("input", () => {
     }
 });
 
-edit_img_input.addEventListener("click", () => {
+edit_img_input.addEventListener("input", () => {
     const preview = document.getElementById("preview_img");
     preview.style.opacity = 1;
 
@@ -83,6 +83,7 @@ document.getElementById("upload-form").addEventListener("submit", (e) => {
         makeThumbnail();
     }
 });
+
 
 const makeThumbnail = async () => {
     const ffmpeg = createFFmpeg({ log: true, corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js" });
