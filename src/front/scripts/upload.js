@@ -33,13 +33,12 @@ upload_img_input.addEventListener("input", () => {
 
 edit_img_input.addEventListener("input", () => {
     const preview = document.getElementById("preview_img");
-    preview.style.opacity = 1;
 
     if (preview.src == preview.dataset.src) {
-        preview.src = URL.createObjectURL(upload_img_input.files[0]);
+        preview.src = URL.createObjectURL(edit_img_input.files[0]);
     } else {
         URL.revokeObjectURL(preview.src);
-        preview.src = URL.createObjectURL(upload_img_input.files[0]);
+        preview.src = URL.createObjectURL(edit_img_input.files[0]);
     }
 });
 
@@ -50,7 +49,7 @@ edit_img_cancel.addEventListener("click", () => {
         URL.revokeObjectURL(preview.src);
         preview.src = preview.dataset.src;
     }
-    upload_img_cancel.blur();
+    edit_img_cancel.blur();
 });
 
 upload_file_cancel.addEventListener("click", () => {

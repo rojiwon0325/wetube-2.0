@@ -57,7 +57,8 @@ export const getEditVideo = async (req, res) => {
 
 export const postEditVideo = async (req, res) => {
     const { id } = req.params;
-    const { title, description, file } = req.body;
+    const { title, description } = req.body;
+    const { file } = req;
     const video = await Video.findById(id).populate("meta.creator");
     if (video) {
         if (video.meta.creator._id != req.session.user._id) {
