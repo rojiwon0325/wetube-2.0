@@ -113,7 +113,7 @@
                 width: 300px;
                 min-height: 150px;
                 background-color: black;
-                margin-bottom: 20px;
+                margin: 20px 0;
             }
             .upload_preview{
                 width: 300px;
@@ -138,7 +138,7 @@
             width: 800px;
             height: 60px;
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
             .form_submit_input{
                 padding: 10px 35px;
