@@ -42,6 +42,7 @@ export const getEditVideo = async (req, res) => {
     const reg = /([0-9a-f]{24})/g;
     const id = req.params.id.match(reg)
     const video = await Video.findById(id).populate("meta.creator");
+    return res.redirect("/");
     if (video) {
         if (video.meta.creator._id == req.session.user._id) {
             return res.render("editVideo", { pageTitle: "Edit Video |", video });
