@@ -5,8 +5,9 @@ export const videos = (req, res) => {
     try {
         if (req.session.user) {
             const videos = User.findById(req.session.user._id).populate("videos").videos;
-            return res.render("home", { videos });
+            return res.render("videos", { videos });
         }
+        return res.redirect("/");
     } catch {
         return res.redirect("/");
     }
