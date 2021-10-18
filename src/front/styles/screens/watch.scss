@@ -300,16 +300,16 @@
                                 height: 100%;
                                 box-sizing: border-box;
                                 display: flex;
-                                justify-content: center;
+                                justify-content: start;
+                                padding-left: 10px;
                                 align-items: center;
                                 overflow: hidden;
                                 &:hover{
-                                    width: 50px;
+                                    width: 40px;
                                 }
                                 .watch_comments_action_btn{
                                     width: 30px;
                                     height: 30px;
-                                    margin: 0 10px;
                                     background-color: gray;
                                     color: white;
                                     border-radius: 3px;
